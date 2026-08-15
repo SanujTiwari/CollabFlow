@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-import authRoutes from "./routes/auth.routes.js";
+import authRoutes from "./routes/auth.routes.js";   // ← Important
 
 dotenv.config();
 
@@ -23,8 +23,8 @@ app.set("io", io);
 app.use(cors());
 app.use(express.json());
 
-// Routes
-app.use("/api/auth", authRoutes);
+// =============== ROUTES ===============
+app.use("/api/auth", authRoutes);          // ← This line is critical
 
 app.get("/", (req, res) => {
   res.send("CollabFlow API is running...");
@@ -32,10 +32,6 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
-
-  socket.on("disconnect", () => {
-    console.log("User disconnected:", socket.id);
-  });
 });
 
 const PORT = process.env.PORT || 5000;
