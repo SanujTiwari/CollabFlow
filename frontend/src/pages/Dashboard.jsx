@@ -9,6 +9,7 @@ const Dashboard = () => {
   const [workspaces, setWorkspaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchWorkspaces = async () => {
     try {
@@ -26,88 +27,173 @@ const Dashboard = () => {
   }, []);
 
   const handleWorkspaceCreated = (newWorkspace) => {
-    setWorkspaces((prev) => [...prev, newWorkspace]);
+    setWorkspaces((prev) => [newWorkspace, ...prev]);
     setShowCreateModal(false);
   };
 
+  const filteredWorkspaces = workspaces.filter(
+    (w) =>
+      !searchQuery ||
+      w.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      w.description?.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalBoardsCount = workspaces.reduce((acc, w) => acc + (w._count?.boards || 0), 0);
+  const totalMembersCount = workspaces.reduce((acc, w) => acc + (w._count?.members || 0), 0);
+
   return (
-    <div className="min-h-screen bg-[#07090e] text-gray-100 flex flex-col">
-      {/* Top App Header */}
-      <header className="border-b border-white/10 bg-[#0b0e17]/80 backdrop-blur-xl sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div className="min-h-screen bg-mesh text-gray-100 flex flex-col">
+      {/* Top Navbar */}
+      <header className="border-b border-white/10 bg-[#060810]/80 backdrop-blur-xl sticky top-0 z-40">
+        <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
+          
+          {/* Logo & Brand */}
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-gradient-to-br from-violet-500 via-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/25">
-              <span className="text-white font-black text-lg">C</span>
+            <div className="w-10 h-10 bg-gradient-to-br from-violet-500 via-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/30">
+              <span className="text-white font-black text-xl">C</span>
             </div>
-            <span className="text-lg font-bold text-white tracking-tight">CollabFlow</span>
+            <div>
+              <span className="text-lg font-extrabold text-white tracking-tight">CollabFlow</span>
+              <span className="ml-2 text-[10px] font-bold text-violet-400 bg-violet-500/15 border border-violet-500/30 px-2 py-0.5 rounded-full uppercase tracking-wider">
+                Pro
+              </span>
+            </div>
           </div>
 
+          {/* Search bar & Profile */}
           <div className="flex items-center gap-4">
+            <div className="relative hidden sm:block">
+              <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search workspaces..."
+                className="glass-input rounded-full pl-10 pr-4 py-2 text-xs text-white placeholder-gray-400 w-52 focus:w-64 transition-all"
+              />
+            </div>
+
             <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full">
-              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-xs">
-                {user?.name?.charAt(0)?.toUpperCase()}
+              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-xs shadow-md">
+                {user?.name?.charAt(0)?.toUpperCase() || "U"}
               </div>
-              <span className="text-xs font-semibold text-gray-200">{user?.name}</span>
+              <span className="text-xs font-bold text-gray-200 hidden md:inline">{user?.name}</span>
             </div>
 
             <button
               onClick={logout}
-              className="text-xs font-semibold text-gray-400 hover:text-rose-400 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors"
+              className="text-xs font-semibold text-gray-400 hover:text-rose-400 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors"
+              title="Sign out"
             >
-              Logout
+              Sign out
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-10 flex-1 w-full">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-3xl font-extrabold text-white tracking-tight">Your Workspaces</h1>
-            <p className="text-sm text-gray-400 mt-1">Select a workspace or create a new team dashboard</p>
-          </div>
-
-          <button
-            onClick={() => setShowCreateModal(true)}
-            className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
-          >
-            + New Workspace
-          </button>
-        </div>
-
-        {loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="bg-white/5 border border-white/5 rounded-2xl h-44 animate-pulse"
-              />
-            ))}
-          </div>
-        ) : workspaces.length === 0 ? (
-          <div className="glass-panel rounded-2xl text-center py-20 px-6 max-w-lg mx-auto border border-white/10 shadow-2xl">
-            <div className="w-16 h-16 bg-violet-500/10 border border-violet-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-violet-400 shadow-inner">
-              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-              </svg>
+      {/* Main Container */}
+      <main className="max-w-7xl mx-auto px-6 py-8 flex-1 w-full space-y-8">
+        
+        {/* Welcome Banner & Overview Metrics */}
+        <div className="glass-panel rounded-3xl p-8 border border-white/10 relative overflow-hidden shadow-2xl">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl pointer-events-none" />
+          
+          <div className="flex flex-wrap items-center justify-between gap-6 relative z-10">
+            <div>
+              <span className="text-xs font-bold text-violet-400 uppercase tracking-widest bg-violet-500/10 border border-violet-500/20 px-3 py-1 rounded-full inline-block mb-3">
+                Workspace Dashboard
+              </span>
+              <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                Welcome back, <span className="gradient-accent-text">{user?.name || "Developer"}</span> 👋
+              </h1>
+              <p className="text-sm text-gray-300 mt-2 max-w-xl">
+                Here is an overview of your active workspaces, boards, and real-time collaboration.
+              </p>
             </div>
-            <h2 className="text-xl font-bold text-white mb-2">No workspaces yet</h2>
-            <p className="text-sm text-gray-400 mb-6">Create your first workspace to start collaborating on boards and tasks.</p>
+
             <button
               onClick={() => setShowCreateModal(true)}
-              className="bg-violet-600 hover:bg-violet-500 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-violet-500/25"
+              className="btn-glow text-white px-6 py-3.5 rounded-xl font-bold text-sm flex items-center gap-2 shadow-lg"
             >
-              Create Workspace
+              <span>+ Create Workspace</span>
             </button>
           </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {workspaces.map((workspace) => (
-              <WorkspaceCard key={workspace.id} workspace={workspace} />
-            ))}
+
+          {/* Quick Metrics Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8 pt-6 border-t border-white/10 relative z-10">
+            <div className="glass-card p-4 rounded-2xl">
+              <p className="text-xs font-semibold text-gray-400">Total Workspaces</p>
+              <h2 className="text-2xl font-extrabold text-white mt-1">{workspaces.length}</h2>
+            </div>
+
+            <div className="glass-card p-4 rounded-2xl">
+              <p className="text-xs font-semibold text-gray-400">Active Boards</p>
+              <h2 className="text-2xl font-extrabold text-violet-400 mt-1">{totalBoardsCount}</h2>
+            </div>
+
+            <div className="glass-card p-4 rounded-2xl">
+              <p className="text-xs font-semibold text-gray-400">Team Members</p>
+              <h2 className="text-2xl font-extrabold text-indigo-400 mt-1">{totalMembersCount}</h2>
+            </div>
+
+            <div className="glass-card p-4 rounded-2xl">
+              <p className="text-xs font-semibold text-gray-400">Socket.IO Status</p>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
+                <span className="text-xs font-bold text-emerald-400">Live Connected</span>
+              </div>
+            </div>
           </div>
-        )}
+        </div>
+
+        {/* Workspaces Section */}
+        <div>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-xl font-bold text-white tracking-tight">Your Workspaces</h2>
+              <p className="text-xs text-gray-400 mt-0.5">Select a workspace to manage boards and tasks</p>
+            </div>
+            
+            <span className="text-xs font-semibold text-gray-400 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full">
+              Showing {filteredWorkspaces.length} of {workspaces.length}
+            </span>
+          </div>
+
+          {loading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="glass-card rounded-2xl h-48 animate-pulse" />
+              ))}
+            </div>
+          ) : filteredWorkspaces.length === 0 ? (
+            <div className="glass-panel rounded-3xl text-center py-16 px-6 max-w-md mx-auto border border-white/10 shadow-2xl">
+              <div className="w-16 h-16 bg-violet-500/10 border border-violet-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-violet-400 text-2xl">
+                🚀
+              </div>
+              <h3 className="text-lg font-bold text-white mb-1">
+                {searchQuery ? "No workspaces found" : "No workspaces created yet"}
+              </h3>
+              <p className="text-xs text-gray-400 mb-6">
+                {searchQuery ? `No workspace matched "${searchQuery}"` : "Create your first workspace to start building Kanban boards."}
+              </p>
+              <button
+                onClick={() => setShowCreateModal(true)}
+                className="btn-glow text-white px-6 py-3 rounded-xl font-bold text-xs shadow-md"
+              >
+                Create Workspace
+              </button>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredWorkspaces.map((workspace) => (
+                <WorkspaceCard key={workspace.id} workspace={workspace} />
+              ))}
+            </div>
+          )}
+        </div>
+
       </main>
 
       {showCreateModal && (
