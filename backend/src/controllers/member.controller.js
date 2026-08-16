@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { logActivity } from "./activity.controller.js";
 
 // ====================== ADD MEMBER ======================
 export const addMember = async (req, res) => {
@@ -10,7 +11,6 @@ export const addMember = async (req, res) => {
       return res.status(400).json({ message: "Email is required" });
     }
 
-    // Check requester's role
     const requesterMember = await prisma.workspaceMember.findUnique({
       where: { workspaceId_userId: { workspaceId, userId: req.user.id } },
     });
@@ -19,13 +19,11 @@ export const addMember = async (req, res) => {
       return res.status(403).json({ message: "Only OWNER or ADMIN can add members" });
     }
 
-    // Find user by email
     const userToAdd = await prisma.user.findUnique({ where: { email } });
     if (!userToAdd) {
       return res.status(404).json({ message: "User not found with this email" });
     }
 
-    // Check if already a member
     const existingMember = await prisma.workspaceMember.findUnique({
       where: { workspaceId_userId: { workspaceId, userId: userToAdd.id } },
     });
@@ -43,6 +41,8 @@ export const addMember = async (req, res) => {
         user: { select: { id: true, name: true, email: true, avatar: true } },
       },
     });
+
+    await logActivity(workspaceId, req.user.id, `added "${userToAdd.name}" to the workspace`);
 
     res.status(201).json(member);
   } catch (error) {
@@ -97,6 +97,8 @@ export const updateMemberRole = async (req, res) => {
       },
     });
 
+    await logActivity(workspaceId, req.user.id, `changed "${member.user.name}"'s role to ${role}`);
+
     res.status(200).json(member);
   } catch (error) {
     console.error("Update Member Role Error:", error);
@@ -119,6 +121,7 @@ export const removeMember = async (req, res) => {
 
     const memberToRemove = await prisma.workspaceMember.findUnique({
       where: { id: memberId },
+      include: { user: true },
     });
 
     if (!memberToRemove) {
@@ -130,6 +133,8 @@ export const removeMember = async (req, res) => {
     }
 
     await prisma.workspaceMember.delete({ where: { id: memberId } });
+
+    await logActivity(workspaceId, req.user.id, `removed "${memberToRemove.user.name}" from the workspace`);
 
     res.status(200).json({ message: "Member removed successfully" });
   } catch (error) {

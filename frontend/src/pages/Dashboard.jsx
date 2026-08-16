@@ -31,28 +31,28 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-950 text-gray-100">
-      {/* Header */}
-      <header className="border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm sticky top-0 z-40">
+    <div className="min-h-screen bg-[#07090e] text-gray-100 flex flex-col">
+      {/* Top App Header */}
+      <header className="border-b border-white/10 bg-[#0b0e17]/80 backdrop-blur-xl sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">C</span>
+            <div className="w-9 h-9 bg-gradient-to-br from-violet-500 via-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/25">
+              <span className="text-white font-black text-lg">C</span>
             </div>
-            <h1 className="text-xl font-semibold text-white">CollabFlow</h1>
+            <span className="text-lg font-bold text-white tracking-tight">CollabFlow</span>
           </div>
+
           <div className="flex items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-br from-violet-500 to-purple-600 rounded-full flex items-center justify-center">
-                <span className="text-white text-sm font-medium">
-                  {user?.name?.charAt(0)?.toUpperCase()}
-                </span>
+            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full">
+              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-xs">
+                {user?.name?.charAt(0)?.toUpperCase()}
               </div>
-              <span className="text-sm text-gray-300">{user?.name}</span>
+              <span className="text-xs font-semibold text-gray-200">{user?.name}</span>
             </div>
+
             <button
               onClick={logout}
-              className="text-sm text-gray-400 hover:text-white px-3 py-1.5 rounded-lg hover:bg-gray-800 transition-colors"
+              className="text-xs font-semibold text-gray-400 hover:text-rose-400 px-3 py-1.5 rounded-lg hover:bg-white/5 transition-colors"
             >
               Logout
             </button>
@@ -61,15 +61,16 @@ const Dashboard = () => {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-10">
-        <div className="flex items-center justify-between mb-8">
+      <main className="max-w-7xl mx-auto px-6 py-10 flex-1 w-full">
+        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
           <div>
-            <h2 className="text-2xl font-semibold text-white">Your Workspaces</h2>
-            <p className="text-gray-400 mt-1">Manage your projects and collaborate with your team</p>
+            <h1 className="text-3xl font-extrabold text-white tracking-tight">Your Workspaces</h1>
+            <p className="text-sm text-gray-400 mt-1">Select a workspace or create a new team dashboard</p>
           </div>
+
           <button
             onClick={() => setShowCreateModal(true)}
-            className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-lg font-medium transition-all duration-200 shadow-lg shadow-violet-500/20 hover:shadow-violet-500/30"
+            className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white px-5 py-2.5 rounded-xl font-bold text-sm transition-all duration-200 shadow-lg shadow-violet-500/25 hover:shadow-violet-500/40"
           >
             + New Workspace
           </button>
@@ -80,22 +81,22 @@ const Dashboard = () => {
             {[1, 2, 3].map((i) => (
               <div
                 key={i}
-                className="bg-gray-900 border border-gray-800 rounded-xl h-44 animate-pulse"
+                className="bg-white/5 border border-white/5 rounded-2xl h-44 animate-pulse"
               />
             ))}
           </div>
         ) : workspaces.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="w-16 h-16 bg-gray-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <svg className="w-8 h-8 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="glass-panel rounded-2xl text-center py-20 px-6 max-w-lg mx-auto border border-white/10 shadow-2xl">
+            <div className="w-16 h-16 bg-violet-500/10 border border-violet-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4 text-violet-400 shadow-inner">
+              <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-300 mb-2">No workspaces yet</h3>
-            <p className="text-gray-500 mb-6">Create your first workspace to get started</p>
+            <h2 className="text-xl font-bold text-white mb-2">No workspaces yet</h2>
+            <p className="text-sm text-gray-400 mb-6">Create your first workspace to start collaborating on boards and tasks.</p>
             <button
               onClick={() => setShowCreateModal(true)}
-              className="bg-violet-600 hover:bg-violet-500 text-white px-5 py-2.5 rounded-lg font-medium transition-colors"
+              className="bg-violet-600 hover:bg-violet-500 text-white px-6 py-3 rounded-xl font-bold text-sm transition-all shadow-lg shadow-violet-500/25"
             >
               Create Workspace
             </button>

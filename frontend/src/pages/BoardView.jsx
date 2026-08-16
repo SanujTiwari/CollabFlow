@@ -2,13 +2,12 @@ import { useState, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import {
   DndContext,
-  closestCorners,
+  closestCenter,
   PointerSensor,
   useSensor,
   useSensors,
   DragOverlay,
 } from "@dnd-kit/core";
-import { SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import api from "../lib/axios";
 import ListColumn from "../components/board/ListColumn";
 import TaskCard from "../components/board/TaskCard";
@@ -18,12 +17,22 @@ import { io as socketIO } from "socket.io-client";
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
 
+const boardThemes = [
+  { id: "dark", name: "Midnight", bg: "bg-[#07090e]" },
+  { id: "violet", name: "Violet Dusk", bg: "bg-gradient-to-br from-slate-950 via-purple-950/40 to-slate-950" },
+  { id: "indigo", name: "Deep Indigo", bg: "bg-gradient-to-br from-slate-950 via-indigo-950/40 to-slate-950" },
+  { id: "emerald", name: "Forest", bg: "bg-gradient-to-br from-slate-950 via-emerald-950/40 to-slate-950" },
+];
+
 const BoardView = () => {
   const { boardId } = useParams();
   const [board, setBoard] = useState(null);
   const [loading, setLoading] = useState(true);
   const [activeTask, setActiveTask] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedPriority, setSelectedPriority] = useState("ALL");
+  const [activeTheme, setActiveTheme] = useState(boardThemes[1]);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
@@ -44,34 +53,46 @@ const BoardView = () => {
     fetchBoard();
   }, [fetchBoard]);
 
-  // Socket.IO for real-time
+  // Socket.IO real-time with deduplication to prevent duplicate cards/lists!
   useEffect(() => {
     const socket = socketIO(SOCKET_URL);
     socket.emit("joinBoard", boardId);
 
-    socket.on("list:created", (list) => {
-      setBoard((prev) => prev ? { ...prev, lists: [...prev.lists, { ...list, tasks: list.tasks || [] }] } : prev);
+    socket.on("list:created", (newList) => {
+      setBoard((prev) => {
+        if (!prev) return prev;
+        if (prev.lists.some((l) => l.id === newList.id)) return prev;
+        return { ...prev, lists: [...prev.lists, { ...newList, tasks: newList.tasks || [] }] };
+      });
     });
 
     socket.on("list:updated", (updatedList) => {
-      setBoard((prev) => prev ? {
-        ...prev,
-        lists: prev.lists.map((l) => (l.id === updatedList.id ? { ...l, ...updatedList } : l)),
-      } : prev);
+      setBoard((prev) =>
+        prev
+          ? {
+              ...prev,
+              lists: prev.lists.map((l) => (l.id === updatedList.id ? { ...l, ...updatedList } : l)),
+            }
+          : prev
+      );
     });
 
     socket.on("list:deleted", ({ listId }) => {
-      setBoard((prev) => prev ? { ...prev, lists: prev.lists.filter((l) => l.id !== listId) } : prev);
+      setBoard((prev) =>
+        prev ? { ...prev, lists: prev.lists.filter((l) => l.id !== listId) } : prev
+      );
     });
 
-    socket.on("task:created", (task) => {
+    socket.on("task:created", (newTask) => {
       setBoard((prev) => {
         if (!prev) return prev;
         return {
           ...prev,
-          lists: prev.lists.map((l) =>
-            l.id === task.listId ? { ...l, tasks: [...l.tasks, task] } : l
-          ),
+          lists: prev.lists.map((l) => {
+            if (l.id !== newTask.listId) return l;
+            if (l.tasks.some((t) => t.id === newTask.id)) return l;
+            return { ...l, tasks: [...l.tasks, newTask] };
+          }),
         };
       });
     });
@@ -102,7 +123,7 @@ const BoardView = () => {
     });
 
     socket.on("task:moved", () => {
-      fetchBoard(); // Refetch to get correct positions
+      fetchBoard();
     });
 
     return () => {
@@ -133,17 +154,14 @@ const BoardView = () => {
     const activeResult = findTaskAndList(active.id);
     if (!activeResult) return;
 
-    // Determine destination list
     let destinationListId = over.id;
     let newPosition = 0;
 
-    // If dropping over a task, find its list
     const overResult = findTaskAndList(over.id);
     if (overResult) {
       destinationListId = overResult.list.id;
       newPosition = overResult.list.tasks.findIndex((t) => t.id === over.id);
     } else {
-      // Dropping over a list directly
       const destList = board.lists.find((l) => l.id === over.id);
       if (destList) {
         newPosition = destList.tasks.length;
@@ -153,7 +171,7 @@ const BoardView = () => {
     const sourceListId = activeResult.list.id;
 
     if (sourceListId === destinationListId && activeResult.task.position === newPosition) {
-      return; // No change
+      return;
     }
 
     // Optimistic update
@@ -169,7 +187,11 @@ const BoardView = () => {
         lists: newLists.map((l) => {
           if (l.id === destinationListId) {
             const newTasks = [...l.tasks];
-            newTasks.splice(newPosition, 0, { ...activeResult.task, listId: destinationListId, position: newPosition });
+            newTasks.splice(newPosition, 0, {
+              ...activeResult.task,
+              listId: destinationListId,
+              position: newPosition,
+            });
             return { ...l, tasks: newTasks };
           }
           return l;
@@ -186,14 +208,16 @@ const BoardView = () => {
       });
     } catch (error) {
       console.error("Failed to reorder:", error);
-      fetchBoard(); // Rollback
+      fetchBoard();
     }
   };
 
-  const handleListCreated = (list) => {
-    setBoard((prev) =>
-      prev ? { ...prev, lists: [...prev.lists, { ...list, tasks: list.tasks || [] }] } : prev
-    );
+  const handleListCreated = (newList) => {
+    setBoard((prev) => {
+      if (!prev) return prev;
+      if (prev.lists.some((l) => l.id === newList.id)) return prev;
+      return { ...prev, lists: [...prev.lists, { ...newList, tasks: newList.tasks || [] }] };
+    });
   };
 
   const handleListDeleted = async (listId) => {
@@ -208,14 +232,16 @@ const BoardView = () => {
     }
   };
 
-  const handleTaskCreated = (task) => {
+  const handleTaskCreated = (newTask) => {
     setBoard((prev) => {
       if (!prev) return prev;
       return {
         ...prev,
-        lists: prev.lists.map((l) =>
-          l.id === task.listId ? { ...l, tasks: [...l.tasks, task] } : l
-        ),
+        lists: prev.lists.map((l) => {
+          if (l.id !== newTask.listId) return l;
+          if (l.tasks.some((t) => t.id === newTask.id)) return l;
+          return { ...l, tasks: [...l.tasks, newTask] };
+        }),
       };
     });
   };
@@ -240,46 +266,121 @@ const BoardView = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="w-8 h-8 border-2 border-violet-500 border-t-transparent rounded-full animate-spin" />
+      <div className="flex items-center justify-center h-full min-h-[600px]">
+        <div className="w-10 h-10 border-3 border-violet-500 border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (!board) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <p className="text-gray-400">Board not found</p>
+      <div className="flex items-center justify-center h-full min-h-[600px]">
+        <p className="text-gray-400 font-medium">Board not found or access denied</p>
       </div>
     );
   }
 
+  // Filter tasks based on Search Query and Priority
+  const filterTask = (task) => {
+    const matchesSearch =
+      !searchQuery ||
+      task.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      task.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesPriority =
+      selectedPriority === "ALL" || task.priority === selectedPriority;
+    return matchesSearch && matchesPriority;
+  };
+
   return (
-    <div className="h-full flex flex-col">
-      {/* Board Header */}
-      <div className="px-6 py-4 border-b border-gray-800 bg-gray-950/80 backdrop-blur-sm">
-        <h2 className="text-xl font-semibold text-white">{board.title}</h2>
+    <div className={`h-full flex flex-col ${activeTheme.bg} transition-colors duration-500`}>
+      {/* Board Header Bar */}
+      <div className="px-6 py-4 border-b border-white/10 bg-[#0b0e17]/80 backdrop-blur-xl flex flex-wrap items-center justify-between gap-4 z-20">
+        <div className="flex items-center gap-3">
+          <div className="w-3 h-8 bg-gradient-to-b from-violet-500 to-indigo-600 rounded-full shadow-lg shadow-violet-500/30" />
+          <div>
+            <h1 className="text-xl font-extrabold text-white tracking-tight">{board.title}</h1>
+            <p className="text-xs text-gray-400 font-medium">
+              {board.lists.length} columns • {board.lists.reduce((acc, l) => acc + l.tasks.length, 0)} total tasks
+            </p>
+          </div>
+        </div>
+
+        {/* Filter Controls & Search */}
+        <div className="flex items-center gap-3 flex-wrap">
+          {/* Search Box */}
+          <div className="relative">
+            <svg
+              className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search tasks..."
+              className="bg-white/5 border border-white/10 rounded-xl pl-9 pr-3 py-1.5 text-xs text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-transparent transition-all w-44 focus:w-56"
+            />
+          </div>
+
+          {/* Priority Filter */}
+          <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+            {["ALL", "HIGH", "URGENT"].map((p) => (
+              <button
+                key={p}
+                onClick={() => setSelectedPriority(p)}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                  selectedPriority === p
+                    ? "bg-violet-600 text-white shadow-sm"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {p}
+              </button>
+            ))}
+          </div>
+
+          {/* Theme Selector */}
+          <div className="flex items-center gap-1">
+            {boardThemes.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setActiveTheme(t)}
+                title={t.name}
+                className={`w-5 h-5 rounded-full border-2 transition-transform ${
+                  activeTheme.id === t.id ? "scale-125 border-white ring-2 ring-violet-500/50" : "border-transparent opacity-70 hover:opacity-100"
+                } ${t.id === "dark" ? "bg-slate-900" : t.id === "violet" ? "bg-purple-600" : t.id === "indigo" ? "bg-indigo-600" : "bg-emerald-600"}`}
+              />
+            ))}
+          </div>
+        </div>
       </div>
 
-      {/* Kanban Board */}
+      {/* Kanban Board Layout */}
       <div className="flex-1 overflow-x-auto overflow-y-hidden p-6">
         <DndContext
           sensors={sensors}
-          collisionDetection={closestCorners}
+          collisionDetection={closestCenter}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
         >
           <div className="flex gap-5 h-full items-start">
-            {board.lists.map((list) => (
-              <ListColumn
-                key={list.id}
-                list={list}
-                onTaskCreated={handleTaskCreated}
-                onTaskClick={(task) => setSelectedTask(task)}
-                onTaskDelete={handleTaskDeleted}
-                onListDelete={handleListDeleted}
-              />
-            ))}
+            {board.lists.map((list) => {
+              const filteredTasks = list.tasks.filter(filterTask);
+              return (
+                <ListColumn
+                  key={list.id}
+                  list={{ ...list, tasks: filteredTasks }}
+                  onTaskCreated={handleTaskCreated}
+                  onTaskClick={(task) => setSelectedTask(task)}
+                  onTaskDelete={handleTaskDeleted}
+                  onListDelete={handleListDeleted}
+                />
+              );
+            })}
             <AddListForm boardId={boardId} onCreated={handleListCreated} />
           </div>
 
@@ -291,6 +392,7 @@ const BoardView = () => {
         </DndContext>
       </div>
 
+      {/* Task Details Modal */}
       {selectedTask && (
         <TaskModal
           taskId={selectedTask.id}

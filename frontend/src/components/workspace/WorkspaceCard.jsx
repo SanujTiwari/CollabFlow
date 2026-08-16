@@ -11,33 +11,45 @@ const gradients = [
 
 const WorkspaceCard = ({ workspace }) => {
   const navigate = useNavigate();
-  const gradientIndex =
-    workspace.name.charCodeAt(0) % gradients.length;
+  const gradientIndex = workspace.name.charCodeAt(0) % gradients.length;
   const gradient = gradients[gradientIndex];
 
   return (
     <div
       onClick={() => navigate(`/workspace/${workspace.id}`)}
-      className="bg-gray-900 border border-gray-800 rounded-xl p-5 hover:border-gray-700 hover:shadow-lg hover:shadow-violet-500/5 transition-all duration-200 cursor-pointer group"
+      className="glass-card rounded-2xl p-6 cursor-pointer hover:-translate-y-1 transition-all duration-300 group relative overflow-hidden"
     >
-      <div className={`w-10 h-10 bg-gradient-to-br ${gradient} rounded-lg flex items-center justify-center mb-4`}>
-        <span className="text-white font-bold text-lg">
-          {workspace.name.charAt(0).toUpperCase()}
+      <div className="flex items-start justify-between mb-4">
+        <div className={`w-12 h-12 bg-gradient-to-br ${gradient} rounded-xl flex items-center justify-center shadow-lg shadow-violet-500/20 group-hover:scale-110 transition-transform duration-300`}>
+          <span className="text-white font-black text-xl">
+            {workspace.name.charAt(0).toUpperCase()}
+          </span>
+        </div>
+        <span className="text-[11px] font-bold text-violet-400 bg-violet-500/10 border border-violet-500/20 px-2.5 py-1 rounded-full">
+          {workspace._count?.boards || 0} boards
         </span>
       </div>
-      <h3 className="text-white font-semibold text-lg mb-1 group-hover:text-violet-400 transition-colors">
+
+      <h3 className="text-lg font-bold text-white group-hover:text-violet-300 transition-colors tracking-tight">
         {workspace.name}
       </h3>
       {workspace.description && (
-        <p className="text-gray-500 text-sm line-clamp-2 mb-3">
+        <p className="text-xs text-gray-400 line-clamp-2 mt-2 font-normal leading-relaxed">
           {workspace.description}
         </p>
       )}
-      <div className="flex items-center gap-2 text-xs text-gray-500">
-        <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-        </svg>
-        <span>{workspace._count?.members || workspace.memberCount || 1} member{(workspace._count?.members || workspace.memberCount || 1) !== 1 ? "s" : ""}</span>
+
+      <div className="flex items-center justify-between mt-6 pt-4 border-t border-white/5 text-xs text-gray-400 font-medium">
+        <div className="flex items-center gap-1.5">
+          <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+          </svg>
+          <span>{workspace._count?.members || 1} member{(workspace._count?.members || 1) !== 1 ? "s" : ""}</span>
+        </div>
+
+        <span className="text-violet-400 font-bold group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
+          Open ➔
+        </span>
       </div>
     </div>
   );

@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { logActivity } from "./activity.controller.js";
 
 // ====================== ADD COMMENT ======================
 export const addComment = async (req, res) => {
@@ -21,11 +22,15 @@ export const addComment = async (req, res) => {
       },
     });
 
-    // Emit socket event
     const task = await prisma.task.findUnique({
       where: { id: taskId },
-      include: { list: true },
+      include: { list: { include: { board: true } } },
     });
+
+    if (task?.list?.board) {
+      await logActivity(task.list.board.workspaceId, req.user.id, `commented on "${task.title}"`);
+    }
+
     const io = req.app.get("io");
     if (io && task) {
       io.to(`board:${task.list.boardId}`).emit("comment:created", comment);

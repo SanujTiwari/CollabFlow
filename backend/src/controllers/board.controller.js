@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { logActivity } from "./activity.controller.js";
 
 // ====================== CREATE BOARD ======================
 export const createBoard = async (req, res) => {
@@ -10,7 +11,6 @@ export const createBoard = async (req, res) => {
       return res.status(400).json({ message: "Board title is required" });
     }
 
-    // Check workspace membership
     const member = await prisma.workspaceMember.findUnique({
       where: { workspaceId_userId: { workspaceId, userId: req.user.id } },
     });
@@ -29,6 +29,8 @@ export const createBoard = async (req, res) => {
         _count: { select: { lists: true } },
       },
     });
+
+    await logActivity(workspaceId, req.user.id, `created board "${title}"`);
 
     res.status(201).json(board);
   } catch (error) {
@@ -96,7 +98,6 @@ export const getBoardById = async (req, res) => {
       return res.status(404).json({ message: "Board not found" });
     }
 
-    // Check workspace membership
     const member = await prisma.workspaceMember.findUnique({
       where: { workspaceId_userId: { workspaceId: board.workspaceId, userId: req.user.id } },
     });
@@ -134,6 +135,11 @@ export const updateBoard = async (req, res) => {
 export const deleteBoard = async (req, res) => {
   try {
     const { boardId } = req.params;
+
+    const board = await prisma.board.findUnique({ where: { id: boardId } });
+    if (board) {
+      await logActivity(board.workspaceId, req.user.id, `deleted board "${board.title}"`);
+    }
 
     await prisma.board.delete({ where: { id: boardId } });
 

@@ -37,6 +37,7 @@ app.use("/api/workspaces/:workspaceId/members", memberRoutes);
 app.use("/api/workspaces/:workspaceId/boards", workspaceBoardRouter);
 app.use("/api/boards", boardRouter);
 app.use("/api/boards/:boardId/lists", listRoutes);
+app.use("/api/lists", listRoutes);
 app.use("/api/lists/:listId/tasks", taskRoutes);
 app.use("/api/tasks", taskRoutes);
 app.use("/api/tasks/:taskId/comments", commentRoutes);

@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { logActivity } from "./activity.controller.js";
 
 // ====================== CREATE LIST ======================
 export const createList = async (req, res) => {
@@ -10,7 +11,8 @@ export const createList = async (req, res) => {
       return res.status(400).json({ message: "List title is required" });
     }
 
-    // Get the highest position
+    const board = await prisma.board.findUnique({ where: { id: boardId } });
+
     const lastList = await prisma.list.findFirst({
       where: { boardId },
       orderBy: { position: "desc" },
@@ -22,6 +24,10 @@ export const createList = async (req, res) => {
       data: { title, boardId, position },
       include: { tasks: true },
     });
+
+    if (board) {
+      await logActivity(board.workspaceId, req.user.id, `added list "${title}" to "${board.title}"`);
+    }
 
     // Emit socket event
     const io = req.app.get("io");
@@ -60,9 +66,16 @@ export const deleteList = async (req, res) => {
   try {
     const { listId } = req.params;
 
-    const list = await prisma.list.findUnique({ where: { id: listId } });
+    const list = await prisma.list.findUnique({
+      where: { id: listId },
+      include: { board: true },
+    });
     if (!list) {
       return res.status(404).json({ message: "List not found" });
+    }
+
+    if (list.board) {
+      await logActivity(list.board.workspaceId, req.user.id, `deleted list "${list.title}"`);
     }
 
     await prisma.list.delete({ where: { id: listId } });

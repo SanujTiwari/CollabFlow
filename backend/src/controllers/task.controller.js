@@ -1,4 +1,5 @@
 import prisma from "../config/prisma.js";
+import { logActivity } from "./activity.controller.js";
 
 // ====================== CREATE TASK ======================
 export const createTask = async (req, res) => {
@@ -9,6 +10,11 @@ export const createTask = async (req, res) => {
     if (!title) {
       return res.status(400).json({ message: "Task title is required" });
     }
+
+    const list = await prisma.list.findUnique({
+      where: { id: listId },
+      include: { board: true },
+    });
 
     const lastTask = await prisma.task.findFirst({
       where: { listId },
@@ -37,8 +43,10 @@ export const createTask = async (req, res) => {
       },
     });
 
-    // Get list to find boardId for socket
-    const list = await prisma.list.findUnique({ where: { id: listId } });
+    if (list?.board) {
+      await logActivity(list.board.workspaceId, req.user.id, `created task "${title}" in "${list.title}"`);
+    }
+
     const io = req.app.get("io");
     if (io && list) io.to(`board:${list.boardId}`).emit("task:created", task);
 
@@ -70,10 +78,14 @@ export const updateTask = async (req, res) => {
             user: { select: { id: true, name: true, avatar: true } },
           },
         },
-        list: true,
+        list: { include: { board: true } },
         _count: { select: { comments: true } },
       },
     });
+
+    if (task.list?.board) {
+      await logActivity(task.list.board.workspaceId, req.user.id, `updated task "${task.title}"`);
+    }
 
     const io = req.app.get("io");
     if (io) io.to(`board:${task.list.boardId}`).emit("task:updated", task);
@@ -92,11 +104,15 @@ export const deleteTask = async (req, res) => {
 
     const task = await prisma.task.findUnique({
       where: { id: taskId },
-      include: { list: true },
+      include: { list: { include: { board: true } } },
     });
 
     if (!task) {
       return res.status(404).json({ message: "Task not found" });
+    }
+
+    if (task.list?.board) {
+      await logActivity(task.list.board.workspaceId, req.user.id, `deleted task "${task.title}"`);
     }
 
     await prisma.task.delete({ where: { id: taskId } });
@@ -152,7 +168,13 @@ export const reorderTasks = async (req, res) => {
   try {
     const { taskId, sourceListId, destinationListId, newPosition } = req.body;
 
-    // Move task to new list and position
+    const taskToMove = await prisma.task.findUnique({
+      where: { id: taskId },
+      include: { list: { include: { board: true } } },
+    });
+
+    const destList = await prisma.list.findUnique({ where: { id: destinationListId } });
+
     await prisma.task.update({
       where: { id: taskId },
       data: {
@@ -161,13 +183,11 @@ export const reorderTasks = async (req, res) => {
       },
     });
 
-    // Reorder tasks in destination list
     const tasksInDestination = await prisma.task.findMany({
       where: { listId: destinationListId, id: { not: taskId } },
       orderBy: { position: "asc" },
     });
 
-    // Rebuild positions
     const updates = [];
     let pos = 0;
     for (const t of tasksInDestination) {
@@ -177,7 +197,6 @@ export const reorderTasks = async (req, res) => {
     }
     await Promise.all(updates);
 
-    // If cross-list move, also reorder source list
     if (sourceListId !== destinationListId) {
       const tasksInSource = await prisma.task.findMany({
         where: { listId: sourceListId },
@@ -187,9 +206,16 @@ export const reorderTasks = async (req, res) => {
         prisma.task.update({ where: { id: t.id }, data: { position: i } })
       );
       await Promise.all(sourceUpdates);
+
+      if (taskToMove?.list?.board && destList) {
+        await logActivity(
+          taskToMove.list.board.workspaceId,
+          req.user.id,
+          `moved task "${taskToMove.title}" to "${destList.title}"`
+        );
+      }
     }
 
-    // Get the source list to find boardId
     const sourceList = await prisma.list.findUnique({ where: { id: sourceListId } });
     const io = req.app.get("io");
     if (io && sourceList) {
