@@ -2,19 +2,19 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 
 const priorityStyles = {
-  LOW: "bg-gray-500/15 text-gray-300 border-gray-500/30",
-  MEDIUM: "bg-blue-500/15 text-blue-300 border-blue-500/30",
-  HIGH: "bg-amber-500/15 text-amber-300 border-amber-500/30",
-  URGENT: "bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-sm shadow-rose-500/20",
+  LOW: "bg-gray-100 text-gray-600 border-gray-200",
+  MEDIUM: "bg-blue-50 text-blue-600 border-blue-200",
+  HIGH: "bg-amber-50 text-amber-600 border-amber-200",
+  URGENT: "bg-red-50 text-red-600 border-red-200",
 };
 
 const labelColorMap = {
-  Bug: "bg-rose-500/20 text-rose-300 border-rose-500/40",
-  Feature: "bg-purple-500/20 text-purple-300 border-purple-500/40",
-  Design: "bg-blue-500/20 text-blue-300 border-blue-500/40",
-  Backend: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
-  Frontend: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40",
-  Urgent: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+  Bug: "bg-red-50 text-red-600 border-red-200",
+  Feature: "bg-purple-50 text-purple-600 border-purple-200",
+  Design: "bg-blue-50 text-blue-600 border-blue-200",
+  Backend: "bg-green-50 text-green-600 border-green-200",
+  Frontend: "bg-cyan-50 text-cyan-600 border-cyan-200",
+  Urgent: "bg-amber-50 text-amber-600 border-amber-200",
 };
 
 const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
@@ -47,10 +47,10 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
         e.stopPropagation();
         onClick?.();
       }}
-      className={`glass-card rounded-xl p-3.5 cursor-grab active:cursor-grabbing transition-all duration-200 group relative ${
+      className={`bg-white border rounded-xl p-3.5 cursor-grab active:cursor-grabbing transition-all duration-200 group relative ${
         isDragState
-          ? "opacity-90 shadow-2xl shadow-violet-500/20 ring-2 ring-violet-500 border-violet-500 rotate-2 scale-105 z-50 bg-slate-900"
-          : "hover:border-violet-500/40 hover:-translate-y-0.5"
+          ? "opacity-90 shadow-xl ring-2 ring-[#D47E30] border-[#D47E30] rotate-2 scale-105 z-50"
+          : "border-[#E5E7EB] hover:border-[#D47E30]/40 hover:-translate-y-0.5 hover:shadow-sm"
       }`}
     >
       {/* Label Pills Header */}
@@ -60,7 +60,7 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
             <span
               key={lbl}
               className={`text-[9px] font-extrabold px-2 py-0.5 rounded-full border ${
-                labelColorMap[lbl] || "bg-violet-500/20 text-violet-300 border-violet-500/30"
+                labelColorMap[lbl] || "bg-[#FEF3E7] text-[#D47E30] border-[#D47E30]/20"
               }`}
             >
               {lbl}
@@ -70,7 +70,7 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
       )}
 
       <div className="flex items-start justify-between gap-2">
-        <h4 className="text-sm font-semibold text-gray-100 group-hover:text-violet-300 transition-colors leading-snug flex-1">
+        <h4 className="text-sm font-semibold text-[#1E293B] group-hover:text-[#D47E30] transition-colors leading-snug flex-1">
           {task.title}
         </h4>
         {onDelete && (
@@ -79,7 +79,7 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
               e.stopPropagation();
               onDelete();
             }}
-            className="opacity-0 group-hover:opacity-100 text-gray-500 hover:text-rose-400 p-1 rounded-lg hover:bg-white/5 transition-all flex-shrink-0"
+            className="opacity-0 group-hover:opacity-100 text-[#94a3b8] hover:text-[#DC2626] p-1 rounded-lg hover:bg-red-50 transition-all flex-shrink-0"
             title="Delete task"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -90,7 +90,7 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
       </div>
 
       {task.description && (
-        <p className="text-xs text-gray-400 line-clamp-2 mt-1.5 font-normal">
+        <p className="text-xs text-[#94a3b8] line-clamp-2 mt-1.5 font-normal">
           {task.description}
         </p>
       )}
@@ -110,8 +110,8 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
           <span
             className={`text-[11px] font-medium flex items-center gap-1 px-2 py-0.5 rounded-md border ${
               completedChecklist === totalChecklist
-                ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
-                : "bg-white/5 text-gray-300 border-white/5"
+                ? "bg-green-50 text-[#22C55E] border-green-200"
+                : "bg-[#F8F6F2] text-[#475569] border-[#E5E7EB]"
             }`}
           >
             <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -122,8 +122,8 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
         )}
 
         {task.dueDate && (
-          <span className="text-[11px] font-medium text-gray-400 flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">
-            <svg className="w-3 h-3 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <span className="text-[11px] font-medium text-[#94a3b8] flex items-center gap-1 bg-[#F8F6F2] px-2 py-0.5 rounded-md border border-[#E5E7EB]">
+            <svg className="w-3 h-3 text-[#D47E30]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             {new Date(task.dueDate).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
@@ -131,8 +131,8 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
         )}
 
         {task._count?.comments > 0 && (
-          <span className="text-[11px] font-medium text-gray-400 flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">
-            <svg className="w-3 h-3 text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <span className="text-[11px] font-medium text-[#94a3b8] flex items-center gap-1 bg-[#F8F6F2] px-2 py-0.5 rounded-md border border-[#E5E7EB]">
+            <svg className="w-3 h-3 text-[#3B82F6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
             </svg>
             {task._count.comments}
@@ -141,19 +141,19 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
       </div>
 
       {task.assignees?.length > 0 && (
-        <div className="flex -space-x-2 mt-3 pt-2 border-t border-white/5">
+        <div className="flex -space-x-2 mt-3 pt-2 border-t border-[#E5E7EB]">
           {task.assignees.slice(0, 3).map((a) => (
             <div
               key={a.id}
-              className="w-6 h-6 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center ring-2 ring-slate-900 shadow-sm"
+              className="w-6 h-6 bg-[#D47E30] rounded-full flex items-center justify-center ring-2 ring-white shadow-sm"
               title={a.user?.name || "User"}
             >
               <span className="text-[9px] text-white font-bold">{a.user?.name?.charAt(0) || "U"}</span>
             </div>
           ))}
           {task.assignees.length > 3 && (
-            <div className="w-6 h-6 bg-gray-800 rounded-full flex items-center justify-center ring-2 ring-slate-900">
-              <span className="text-[9px] text-gray-300 font-bold">+{task.assignees.length - 3}</span>
+            <div className="w-6 h-6 bg-[#C9C3BB] rounded-full flex items-center justify-center ring-2 ring-white">
+              <span className="text-[9px] text-[#1E293B] font-bold">+{task.assignees.length - 3}</span>
             </div>
           )}
         </div>
