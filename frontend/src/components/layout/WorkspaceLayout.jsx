@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Outlet, Link, useLocation } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
 import api from "../../lib/axios";
 import CommandPalette from "./CommandPalette";
+import UserProfileMenu from "./UserProfileMenu";
 
 const WorkspaceLayout = () => {
   const { workspaceId } = useParams();
-  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [workspace, setWorkspace] = useState(null);
@@ -40,11 +39,12 @@ const WorkspaceLayout = () => {
   return (
     <div className="min-h-screen bg-[#07090e] text-gray-100 flex overflow-hidden">
       <CommandPalette />
+
       {/* Sidebar */}
       <aside
         className={`${
           sidebarOpen ? "w-64" : "w-0 opacity-0"
-        } bg-[#0b0e17]/90 backdrop-blur-xl border-r border-white/10 flex-shrink-0 transition-all duration-300 overflow-hidden relative z-30`}
+        } bg-[#0b0e17]/95 backdrop-blur-2xl border-r border-white/10 flex-shrink-0 transition-all duration-300 overflow-hidden relative z-30`}
       >
         <div className="w-64 h-full flex flex-col justify-between">
           <div>
@@ -57,7 +57,7 @@ const WorkspaceLayout = () => {
                 <svg className="w-4 h-4 transform group-hover:-translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to All Workspaces
+                Back to Dashboard
               </Link>
               
               <div className="flex items-center gap-3">
@@ -77,7 +77,7 @@ const WorkspaceLayout = () => {
             </div>
 
             {/* Navigation */}
-            <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-220px)]">
+            <nav className="p-3 space-y-1 overflow-y-auto max-h-[calc(100vh-180px)]">
               <p className="px-3 text-[11px] font-bold text-gray-400 uppercase tracking-wider mb-2">Workspace</p>
               
               <Link
@@ -160,43 +160,59 @@ const WorkspaceLayout = () => {
             </nav>
           </div>
 
-          {/* User Profile */}
-          <div className="p-4 border-t border-white/10 bg-black/20">
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md flex-shrink-0">
-                {user?.name?.charAt(0)?.toUpperCase() || "U"}
-              </div>
-              <div className="min-w-0 flex-1">
-                <p className="text-sm font-semibold text-white truncate">{user?.name}</p>
-                <p className="text-xs text-gray-400 truncate">{user?.email}</p>
-              </div>
-              <button
-                onClick={logout}
-                className="p-2 text-gray-400 hover:text-rose-400 hover:bg-white/5 rounded-lg transition-colors"
-                title="Logout"
-              >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                </svg>
-              </button>
-            </div>
+          {/* Clean Sidebar Footer */}
+          <div className="p-3 border-t border-white/10 bg-black/20 text-center">
+            <p className="text-[10px] text-gray-400 font-semibold uppercase tracking-widest flex items-center justify-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              CollabFlow Workspace
+            </p>
           </div>
         </div>
       </aside>
 
-      {/* Main Content Viewport */}
+      {/* Main Content Viewport with Top Header */}
       <div className="flex-1 flex flex-col min-w-0 relative">
-        {/* Mobile Toggle Button */}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="absolute top-4 left-4 z-40 p-2 rounded-xl bg-gray-900/90 border border-white/10 text-gray-300 hover:text-white transition-all shadow-lg"
-          title="Toggle Sidebar"
-        >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
+        {/* Top Header Navbar */}
+        <header className="h-16 px-6 border-b border-white/10 bg-[#0b0e17]/80 backdrop-blur-2xl flex items-center justify-between z-30 sticky top-0">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="p-2 rounded-xl bg-white/5 border border-white/10 text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+              title="Toggle Sidebar"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
 
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-extrabold text-white tracking-tight">{workspace?.name || "CollabFlow"}</span>
+              <span className="text-[10px] text-violet-400 font-bold bg-violet-500/15 border border-violet-500/30 px-2 py-0.5 rounded-md hidden sm:inline">
+                Workspace Active
+              </span>
+            </div>
+          </div>
+
+          {/* Top-Right Tools & User Profile Menu */}
+          <div className="flex items-center gap-4">
+            {/* Quick Command Trigger */}
+            <button
+              onClick={() => window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", ctrlKey: true }))}
+              className="hidden md:flex items-center gap-2 text-xs text-gray-400 bg-white/5 hover:bg-white/10 border border-white/10 px-3 py-1.5 rounded-xl transition-all"
+            >
+              <svg className="w-3.5 h-3.5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <span>Quick Jump...</span>
+              <kbd className="text-[9px] font-mono bg-white/10 text-gray-300 px-1.5 py-0.5 rounded">Ctrl+K</kbd>
+            </button>
+
+            {/* TOP-RIGHT USER PROFILE AVATAR MENU */}
+            <UserProfileMenu />
+          </div>
+        </header>
+
+        {/* Main Content Area */}
         <main className="flex-1 overflow-hidden">
           <Outlet context={{ workspace, boards, setBoards }} />
         </main>
