@@ -3,9 +3,11 @@ import { useAuth } from "../context/AuthContext";
 import api from "../lib/axios";
 import CreateWorkspaceModal from "../components/workspace/CreateWorkspaceModal";
 import WorkspaceCard from "../components/workspace/WorkspaceCard";
+import UserProfileMenu from "../components/layout/UserProfileMenu";
+import CommandPalette from "../components/layout/CommandPalette";
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { user } = useAuth();
   const [workspaces, setWorkspaces] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
@@ -43,8 +45,10 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-mesh text-gray-100 flex flex-col">
+      <CommandPalette />
+
       {/* Top Navbar */}
-      <header className="border-b border-white/10 bg-[#060810]/80 backdrop-blur-xl sticky top-0 z-40">
+      <header className="border-b border-white/10 bg-[#060810]/85 backdrop-blur-2xl sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-6 py-3.5 flex items-center justify-between gap-4">
           
           {/* Logo & Brand */}
@@ -60,7 +64,7 @@ const Dashboard = () => {
             </div>
           </div>
 
-          {/* Search bar & Profile */}
+          {/* Search bar & Top-Right User Profile Menu */}
           <div className="flex items-center gap-4">
             <div className="relative hidden sm:block">
               <svg className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -75,20 +79,8 @@ const Dashboard = () => {
               />
             </div>
 
-            <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-3.5 py-1.5 rounded-full">
-              <div className="w-7 h-7 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-xs shadow-md">
-                {user?.name?.charAt(0)?.toUpperCase() || "U"}
-              </div>
-              <span className="text-xs font-bold text-gray-200 hidden md:inline">{user?.name}</span>
-            </div>
-
-            <button
-              onClick={logout}
-              className="text-xs font-semibold text-gray-400 hover:text-rose-400 px-3 py-2 rounded-xl hover:bg-white/5 transition-colors"
-              title="Sign out"
-            >
-              Sign out
-            </button>
+            {/* TOP RIGHT USER PROFILE MENU */}
+            <UserProfileMenu />
           </div>
         </div>
       </header>
