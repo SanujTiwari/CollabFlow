@@ -94,15 +94,27 @@ model Task {
   position    Int
   priority    Priority  @default(MEDIUM)
   dueDate     DateTime?
+  labels      String[]  @default([])
   listId      String
   createdById String
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
 
-  list        List           @relation(fields: [listId], references: [id], onDelete: Cascade)
-  createdBy   User           @relation("TaskCreator", fields: [createdById], references: [id])
+  list        List            @relation(fields: [listId], references: [id], onDelete: Cascade)
+  createdBy   User            @relation("TaskCreator", fields: [createdById], references: [id])
   assignees   TaskAssignee[]
   comments    Comment[]
+  checklist   ChecklistItem[]
+}
+
+model ChecklistItem {
+  id          String   @id @default(cuid())
+  title       String
+  isCompleted Boolean  @default(false)
+  taskId      String
+  createdAt   DateTime @default(now())
+
+  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
 model TaskAssignee {

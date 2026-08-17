@@ -32,7 +32,49 @@ const BoardView = () => {
   const [selectedTask, setSelectedTask] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedPriority, setSelectedPriority] = useState("ALL");
+  const [selectedLabel, setSelectedLabel] = useState("ALL");
   const [activeTheme, setActiveTheme] = useState(boardThemes[1]);
+  const [showExportMenu, setShowExportMenu] = useState(false);
+
+  const exportBoardCSV = () => {
+    if (!board) return;
+    const rows = [["Board Title", "Column", "Task Title", "Description", "Priority", "Due Date", "Labels", "Assignees"]];
+    board.lists.forEach((list) => {
+      list.tasks.forEach((task) => {
+        rows.push([
+          `"${board.title}"`,
+          `"${list.title}"`,
+          `"${task.title.replace(/"/g, '""')}"`,
+          `"${(task.description || "").replace(/"/g, '""')}"`,
+          `"${task.priority}"`,
+          `"${task.dueDate ? task.dueDate.split("T")[0] : ""}"`,
+          `"${(task.labels || []).join(", ")}"`,
+          `"${(task.assignees || []).map((a) => a.user?.name).join(", ")}"`,
+        ]);
+      });
+    });
+    const csvContent = "data:text/csv;charset=utf-8," + rows.map((e) => e.join(",")).join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `${board.title.replace(/\s+/g, "_")}_Export.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setShowExportMenu(false);
+  };
+
+  const exportBoardJSON = () => {
+    if (!board) return;
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(board, null, 2));
+    const downloadAnchor = document.createElement("a");
+    downloadAnchor.setAttribute("href", dataStr);
+    downloadAnchor.setAttribute("download", `${board.title.replace(/\s+/g, "_")}_Export.json`);
+    document.body.appendChild(downloadAnchor);
+    downloadAnchor.click();
+    downloadAnchor.remove();
+    setShowExportMenu(false);
+  };
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } })
@@ -280,7 +322,7 @@ const BoardView = () => {
     );
   }
 
-  // Filter tasks based on Search Query and Priority
+  // Filter tasks based on Search Query, Priority, and Label
   const filterTask = (task) => {
     const matchesSearch =
       !searchQuery ||
@@ -288,7 +330,9 @@ const BoardView = () => {
       task.description?.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesPriority =
       selectedPriority === "ALL" || task.priority === selectedPriority;
-    return matchesSearch && matchesPriority;
+    const matchesLabel =
+      selectedLabel === "ALL" || (task.labels && task.labels.includes(selectedLabel));
+    return matchesSearch && matchesPriority && matchesLabel;
   };
 
   return (
@@ -305,7 +349,7 @@ const BoardView = () => {
           </div>
         </div>
 
-        {/* Filter Controls & Search */}
+        {/* Filter Controls, Export & Search */}
         <div className="flex items-center gap-3 flex-wrap">
           {/* Search Box */}
           <div className="relative">
@@ -341,6 +385,55 @@ const BoardView = () => {
                 {p}
               </button>
             ))}
+          </div>
+
+          {/* Label Tag Filter */}
+          <div className="flex items-center gap-1 bg-white/5 p-1 rounded-xl border border-white/10">
+            {["ALL", "Bug", "Feature", "Design", "Backend"].map((l) => (
+              <button
+                key={l}
+                onClick={() => setSelectedLabel(l)}
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-semibold transition-all ${
+                  selectedLabel === l
+                    ? "bg-indigo-600 text-white shadow-sm"
+                    : "text-gray-400 hover:text-white hover:bg-white/5"
+                }`}
+              >
+                {l}
+              </button>
+            ))}
+          </div>
+
+          {/* Export Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowExportMenu(!showExportMenu)}
+              className="px-3 py-1.5 text-xs font-bold text-gray-200 bg-white/5 hover:bg-white/10 border border-white/10 rounded-xl transition-all flex items-center gap-1.5"
+            >
+              <svg className="w-4 h-4 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              <span>Export</span>
+            </button>
+
+            {showExportMenu && (
+              <div className="absolute right-0 top-full mt-2 w-36 bg-slate-900 border border-white/10 rounded-xl shadow-2xl z-50 p-1">
+                <button
+                  onClick={exportBoardCSV}
+                  className="w-full text-left px-3 py-2 text-xs font-semibold text-gray-200 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <span className="text-emerald-400 font-mono text-[10px]">.CSV</span>
+                  Export CSV
+                </button>
+                <button
+                  onClick={exportBoardJSON}
+                  className="w-full text-left px-3 py-2 text-xs font-semibold text-gray-200 hover:bg-white/10 rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <span className="text-amber-400 font-mono text-[10px]">.JSON</span>
+                  Export JSON
+                </button>
+              </div>
+            )}
           </div>
 
           {/* Theme Selector */}

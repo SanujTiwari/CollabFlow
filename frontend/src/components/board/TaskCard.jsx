@@ -8,6 +8,15 @@ const priorityStyles = {
   URGENT: "bg-rose-500/20 text-rose-300 border-rose-500/40 shadow-sm shadow-rose-500/20",
 };
 
+const labelColorMap = {
+  Bug: "bg-rose-500/20 text-rose-300 border-rose-500/40",
+  Feature: "bg-purple-500/20 text-purple-300 border-purple-500/40",
+  Design: "bg-blue-500/20 text-blue-300 border-blue-500/40",
+  Backend: "bg-emerald-500/20 text-emerald-300 border-emerald-500/40",
+  Frontend: "bg-cyan-500/20 text-cyan-300 border-cyan-500/40",
+  Urgent: "bg-amber-500/20 text-amber-300 border-amber-500/40",
+};
+
 const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
   const {
     attributes,
@@ -25,6 +34,9 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
 
   const isDragState = isDragging || isSortableDragging;
 
+  const totalChecklist = task.checklist?.length || 0;
+  const completedChecklist = task.checklist?.filter((c) => c.isCompleted)?.length || 0;
+
   return (
     <div
       ref={setNodeRef}
@@ -41,6 +53,22 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
           : "hover:border-violet-500/40 hover:-translate-y-0.5"
       }`}
     >
+      {/* Label Pills Header */}
+      {task.labels && task.labels.length > 0 && (
+        <div className="flex flex-wrap gap-1 mb-2">
+          {task.labels.map((lbl) => (
+            <span
+              key={lbl}
+              className={`text-[9px] font-extrabold px-2 py-0.5 rounded-full border ${
+                labelColorMap[lbl] || "bg-violet-500/20 text-violet-300 border-violet-500/30"
+              }`}
+            >
+              {lbl}
+            </span>
+          ))}
+        </div>
+      )}
+
       <div className="flex items-start justify-between gap-2">
         <h4 className="text-sm font-semibold text-gray-100 group-hover:text-violet-300 transition-colors leading-snug flex-1">
           {task.title}
@@ -78,6 +106,21 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
           </span>
         )}
 
+        {totalChecklist > 0 && (
+          <span
+            className={`text-[11px] font-medium flex items-center gap-1 px-2 py-0.5 rounded-md border ${
+              completedChecklist === totalChecklist
+                ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/30"
+                : "bg-white/5 text-gray-300 border-white/5"
+            }`}
+          >
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            {completedChecklist}/{totalChecklist}
+          </span>
+        )}
+
         {task.dueDate && (
           <span className="text-[11px] font-medium text-gray-400 flex items-center gap-1 bg-white/5 px-2 py-0.5 rounded-md border border-white/5">
             <svg className="w-3 h-3 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -103,9 +146,9 @@ const TaskCard = ({ task, onClick, onDelete, isDragging = false }) => {
             <div
               key={a.id}
               className="w-6 h-6 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center ring-2 ring-slate-900 shadow-sm"
-              title={a.user.name}
+              title={a.user?.name || "User"}
             >
-              <span className="text-[9px] text-white font-bold">{a.user.name.charAt(0)}</span>
+              <span className="text-[9px] text-white font-bold">{a.user?.name?.charAt(0) || "U"}</span>
             </div>
           ))}
           {task.assignees.length > 3 && (

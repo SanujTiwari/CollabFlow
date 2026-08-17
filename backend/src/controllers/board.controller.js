@@ -86,6 +86,9 @@ export const getBoardById = async (req, res) => {
                     user: { select: { id: true, name: true, avatar: true } },
                   },
                 },
+                checklist: {
+                  select: { id: true, isCompleted: true },
+                },
                 _count: { select: { comments: true } },
               },
             },

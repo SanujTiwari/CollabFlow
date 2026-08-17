@@ -36,10 +36,7 @@ const Login = () => {
         
         {/* Left Side: Product Showcase / Hero Banner */}
         <div className="lg:col-span-7 space-y-8 pr-0 lg:pr-8">
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-card border border-violet-500/30 text-xs font-semibold text-violet-300 shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-            <span>CollabFlow Workspace</span>
-          </div>
+          
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
             Welcome back to <br />
