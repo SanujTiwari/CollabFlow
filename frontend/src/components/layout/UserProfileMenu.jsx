@@ -26,36 +26,37 @@ const UserProfileMenu = () => {
     <div className="relative z-50" ref={menuRef}>
       {/* Top-Right Profile Trigger Button */}
       <button
+        id="user-profile-trigger"
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-violet-500/40 p-1.5 pr-3 rounded-full transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-violet-500/50"
+        className="flex items-center gap-2.5 bg-[#F8F6F2] hover:bg-[#DFDBD4] border border-[#C9C3BB] hover:border-[#8B5E3C] p-1.5 pr-3 rounded-full transition-all duration-200 group focus:outline-none focus:ring-2 focus:ring-[#D47E30]/30"
       >
         <div className="relative">
           {user?.avatar ? (
             <img
               src={user.avatar}
               alt={user.name}
-              className="w-8 h-8 rounded-full object-cover ring-2 ring-violet-500/40 group-hover:ring-violet-400 transition-all shadow-md"
+              className="w-8 h-8 rounded-full object-cover ring-2 ring-[#D47E30]/30 group-hover:ring-[#D47E30]/50 transition-all shadow-sm"
             />
           ) : (
-            <div className="w-8 h-8 bg-gradient-to-br from-violet-500 via-indigo-500 to-purple-600 rounded-full flex items-center justify-center font-bold text-white text-xs ring-2 ring-violet-500/40 group-hover:ring-violet-400 shadow-md">
+            <div className="w-8 h-8 bg-[#D47E30] rounded-full flex items-center justify-center font-bold text-white text-xs ring-2 ring-[#D47E30]/30 group-hover:ring-[#D47E30]/50 shadow-sm">
               {user?.name?.charAt(0)?.toUpperCase() || "U"}
             </div>
           )}
-          <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-[#07090e] rounded-full" />
+          <span className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-[#22C55E] border-2 border-white rounded-full" />
         </div>
 
         <div className="text-left hidden sm:block">
-          <p className="text-xs font-bold text-white group-hover:text-violet-300 transition-colors leading-none">
+          <p className="text-xs font-bold text-[#1E293B] group-hover:text-[#D47E30] transition-colors leading-none">
             {user?.name || "User"}
           </p>
-          <p className="text-[10px] text-gray-400 font-medium leading-none mt-0.5">
+          <p className="text-[10px] text-[#94a3b8] font-medium leading-none mt-0.5">
             Pro Member
           </p>
         </div>
 
         <svg
-          className={`w-3.5 h-3.5 text-gray-400 group-hover:text-white transition-transform duration-200 ${
-            open ? "rotate-180 text-violet-400" : ""
+          className={`w-3.5 h-3.5 text-[#94a3b8] group-hover:text-[#475569] transition-transform duration-200 ${
+            open ? "rotate-180 text-[#D47E30]" : ""
           }`}
           fill="none"
           viewBox="0 0 24 24"
@@ -67,16 +68,16 @@ const UserProfileMenu = () => {
 
       {/* Dropdown Menu */}
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-72 bg-[#0b0e17] border border-white/10 rounded-2xl shadow-2xl overflow-hidden animate-fade-in p-2 space-y-2 z-50">
+        <div className="absolute right-0 top-full mt-2 w-72 bg-white border border-[#C9C3BB] rounded-2xl shadow-[0_12px_40px_-8px_rgba(0,0,0,0.12)] overflow-hidden animate-fade-in p-2 space-y-2 z-50">
           {/* User Info Header */}
-          <div className="p-3 bg-gradient-to-br from-violet-900/30 via-indigo-900/20 to-transparent rounded-xl border border-white/5 flex items-center gap-3">
-            <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-lg flex-shrink-0">
+          <div className="p-3 bg-gradient-to-br from-[#FEF3E7] via-[#FDF8F3] to-transparent rounded-xl border border-[#C9C3BB]/50 flex items-center gap-3">
+            <div className="w-10 h-10 bg-[#D47E30] rounded-full flex items-center justify-center font-bold text-white text-sm shadow-sm flex-shrink-0">
               {user?.name?.charAt(0)?.toUpperCase() || "U"}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-extrabold text-white truncate">{user?.name}</p>
-              <p className="text-[11px] text-gray-400 truncate mt-0.5">{user?.email}</p>
-              <span className="inline-block mt-1 text-[9px] font-extrabold text-emerald-300 bg-emerald-500/20 px-2 py-0.5 rounded-full border border-emerald-500/30 uppercase tracking-wider">
+              <p className="text-xs font-extrabold text-[#1E293B] truncate">{user?.name}</p>
+              <p className="text-[11px] text-[#94a3b8] truncate mt-0.5">{user?.email}</p>
+              <span className="inline-block mt-1 text-[9px] font-extrabold text-[#22C55E] bg-green-50 px-2 py-0.5 rounded-full border border-green-200 uppercase tracking-wider">
                 Online Active
               </span>
             </div>
@@ -89,14 +90,14 @@ const UserProfileMenu = () => {
                 setOpen(false);
                 setShowSettings(true);
               }}
-              className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-gray-200 hover:bg-violet-600/20 hover:text-white flex items-center gap-3 transition-colors group"
+              className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-[#475569] hover:bg-[#FEF3E7] hover:text-[#D47E30] flex items-center gap-3 transition-colors group"
             >
-              <div className="w-7 h-7 bg-violet-500/10 rounded-lg flex items-center justify-center text-violet-400 group-hover:scale-110 transition-transform">
+              <div className="w-7 h-7 bg-[#FEF3E7] rounded-lg flex items-center justify-center text-[#D47E30] group-hover:scale-110 transition-transform">
                 ⚙️
               </div>
               <div>
-                <p className="font-bold">Account Settings</p>
-                <p className="text-[10px] text-gray-400">Edit profile, name & avatar</p>
+                <p className="font-bold text-[#1E293B] group-hover:text-[#D47E30]">Account Settings</p>
+                <p className="text-[10px] text-[#94a3b8]">Edit profile, name & avatar</p>
               </div>
             </button>
 
@@ -105,14 +106,14 @@ const UserProfileMenu = () => {
                 setOpen(false);
                 navigate("/dashboard");
               }}
-              className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-gray-200 hover:bg-violet-600/20 hover:text-white flex items-center gap-3 transition-colors group"
+              className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-[#475569] hover:bg-[#FEF3E7] hover:text-[#D47E30] flex items-center gap-3 transition-colors group"
             >
-              <div className="w-7 h-7 bg-indigo-500/10 rounded-lg flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+              <div className="w-7 h-7 bg-blue-50 rounded-lg flex items-center justify-center text-blue-500 group-hover:scale-110 transition-transform">
                 🚀
               </div>
               <div>
-                <p className="font-bold">Workspaces Dashboard</p>
-                <p className="text-[10px] text-gray-400">Switch workspace or board</p>
+                <p className="font-bold text-[#1E293B] group-hover:text-[#D47E30]">Workspaces Dashboard</p>
+                <p className="text-[10px] text-[#94a3b8]">Switch workspace or board</p>
               </div>
             </button>
 
@@ -123,14 +124,14 @@ const UserProfileMenu = () => {
                     setOpen(false);
                     navigate(`/workspace/${workspaceId}/analytics`);
                   }}
-                  className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-gray-200 hover:bg-violet-600/20 hover:text-white flex items-center gap-3 transition-colors group"
+                  className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-[#475569] hover:bg-[#FEF3E7] hover:text-[#D47E30] flex items-center gap-3 transition-colors group"
                 >
-                  <div className="w-7 h-7 bg-emerald-500/10 rounded-lg flex items-center justify-center text-emerald-400 group-hover:scale-110 transition-transform">
+                  <div className="w-7 h-7 bg-green-50 rounded-lg flex items-center justify-center text-green-500 group-hover:scale-110 transition-transform">
                     📊
                   </div>
                   <div>
-                    <p className="font-bold">Workspace Analytics</p>
-                    <p className="text-[10px] text-gray-400">View progress & metrics</p>
+                    <p className="font-bold text-[#1E293B] group-hover:text-[#D47E30]">Workspace Analytics</p>
+                    <p className="text-[10px] text-[#94a3b8]">View progress & metrics</p>
                   </div>
                 </button>
 
@@ -139,27 +140,27 @@ const UserProfileMenu = () => {
                     setOpen(false);
                     navigate(`/workspace/${workspaceId}/members`);
                   }}
-                  className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-gray-200 hover:bg-violet-600/20 hover:text-white flex items-center gap-3 transition-colors group"
+                  className="w-full text-left px-3 py-2.5 rounded-xl text-xs font-semibold text-[#475569] hover:bg-[#FEF3E7] hover:text-[#D47E30] flex items-center gap-3 transition-colors group"
                 >
-                  <div className="w-7 h-7 bg-purple-500/10 rounded-lg flex items-center justify-center text-purple-400 group-hover:scale-110 transition-transform">
+                  <div className="w-7 h-7 bg-purple-50 rounded-lg flex items-center justify-center text-purple-500 group-hover:scale-110 transition-transform">
                     👥
                   </div>
                   <div>
-                    <p className="font-bold">Team Members</p>
-                    <p className="text-[10px] text-gray-400">Roles and access control</p>
+                    <p className="font-bold text-[#1E293B] group-hover:text-[#D47E30]">Team Members</p>
+                    <p className="text-[10px] text-[#94a3b8]">Roles and access control</p>
                   </div>
                 </button>
               </>
             )}
           </div>
 
-          <div className="pt-2 border-t border-white/10">
+          <div className="pt-2 border-t border-[#E5E7EB]">
             <button
               onClick={() => {
                 setOpen(false);
                 logout();
               }}
-              className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 flex items-center gap-2.5 transition-colors"
+              className="w-full text-left px-3 py-2 rounded-xl text-xs font-bold text-[#DC2626] hover:bg-red-50 hover:text-red-700 flex items-center gap-2.5 transition-colors"
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
