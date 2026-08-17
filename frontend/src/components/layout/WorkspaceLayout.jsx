@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate, Outlet, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../lib/axios";
+import CommandPalette from "./CommandPalette";
 
 const WorkspaceLayout = () => {
   const { workspaceId } = useParams();
@@ -38,6 +39,7 @@ const WorkspaceLayout = () => {
 
   return (
     <div className="min-h-screen bg-[#07090e] text-gray-100 flex overflow-hidden">
+      <CommandPalette />
       {/* Sidebar */}
       <aside
         className={`${

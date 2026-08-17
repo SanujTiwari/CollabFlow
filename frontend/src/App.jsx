@@ -7,6 +7,7 @@ import BoardView from "./pages/BoardView";
 import WorkspaceBoards from "./pages/WorkspaceBoards";
 import WorkspaceMembers from "./pages/WorkspaceMembers";
 import WorkspaceActivity from "./pages/WorkspaceActivity";
+import WorkspaceAnalytics from "./pages/WorkspaceAnalytics";
 import ProtectedRoute from "./components/ProtectedRoute";
 import WorkspaceLayout from "./components/layout/WorkspaceLayout";
 
@@ -35,6 +36,7 @@ function App() {
           >
             <Route index element={<WorkspaceBoards />} />
             <Route path="board/:boardId" element={<BoardView />} />
+            <Route path="analytics" element={<WorkspaceAnalytics />} />
             <Route path="members" element={<WorkspaceMembers />} />
             <Route path="activity" element={<WorkspaceActivity />} />
           </Route>
