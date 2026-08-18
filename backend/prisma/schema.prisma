@@ -20,6 +20,12 @@ enum Priority {
   URGENT
 }
 
+enum InviteStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
 model User {
   id            String   @id @default(cuid())
   name          String
@@ -30,12 +36,15 @@ model User {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  ownedWorkspaces Workspace[]       @relation("WorkspaceOwner")
+  ownedWorkspaces Workspace[]           @relation("WorkspaceOwner")
   memberships     WorkspaceMember[]
-  createdTasks    Task[]            @relation("TaskCreator")
+  createdTasks    Task[]                @relation("TaskCreator")
   assignedTasks   TaskAssignee[]
   comments        Comment[]
   activities      Activity[]
+  sentInvitations WorkspaceInvitation[] @relation("SentInvitations")
+  notifications   Notification[]        @relation("UserNotifications")
+  sentNotifications Notification[]      @relation("SentNotifications")
 }
 
 model Workspace {
@@ -46,10 +55,40 @@ model Workspace {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  owner       User              @relation("WorkspaceOwner", fields: [ownerId], references: [id])
+  owner       User                  @relation("WorkspaceOwner", fields: [ownerId], references: [id])
   members     WorkspaceMember[]
   boards      Board[]
   activities  Activity[]
+  invitations WorkspaceInvitation[]
+}
+
+model WorkspaceInvitation {
+  id           String       @id @default(cuid())
+  workspaceId  String
+  inviterId    String
+  inviteeEmail String
+  role         Role         @default(MEMBER)
+  status       InviteStatus @default(PENDING)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  workspace Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  inviter   User      @relation("SentInvitations", fields: [inviterId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  senderId  String?
+  type      String
+  title     String
+  message   String
+  metadata  Json?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user   User  @relation("UserNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  sender User? @relation("SentNotifications", fields: [senderId], references: [id], onDelete: Cascade)
 }
 
 model WorkspaceMember {
