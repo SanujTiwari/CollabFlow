@@ -23,42 +23,42 @@ const NAV_ITEMS = [
 const NavIcon = ({ icon, className = "" }) => {
   const icons = {
     dashboard: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v5a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v2a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 13a1 1 0 011-1h4a1 1 0 011 1v6a1 1 0 01-1 1h-4a1 1 0 01-1-1v-6z" />
       </svg>
     ),
     workspaces: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
       </svg>
     ),
     boards: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
       </svg>
     ),
     tasks: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
       </svg>
     ),
     calendar: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
       </svg>
     ),
     activity: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
     members: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
       </svg>
     ),
     settings: (
-      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
+      <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.75">
         <path strokeLinecap="round" strokeLinejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
       </svg>
@@ -67,7 +67,14 @@ const NavIcon = ({ icon, className = "" }) => {
   return icons[icon] || null;
 };
 
-const WORKSPACE_COLORS = ["bg-[#D47E30]", "bg-[#8B5E3C]", "bg-[#22C55E]", "bg-[#3B82F6]", "bg-[#A855F7]", "bg-[#EF4444]"];
+const WORKSPACE_COLORS = [
+  "bg-[#D47E30]",
+  "bg-[#8B5E3C]",
+  "bg-[#3B82F6]",
+  "bg-[#22C55E]",
+  "bg-[#A855F7]",
+  "bg-[#EF4444]",
+];
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -87,30 +94,51 @@ const Dashboard = () => {
       const { data: wsList } = await api.get("/workspaces");
       setWorkspaces(wsList);
 
-      // Fetch details for all workspaces (boards, members, activities)
       const boardPromises = wsList.map((ws) =>
-        api.get(`/workspaces/${ws.id}/boards`).then((res) =>
-          res.data.map((b) => ({ ...b, workspaceName: ws.name, workspaceId: ws.id }))
-        ).catch(() => [])
-      );
-      const memberPromises = wsList.map((ws) =>
-        api.get(`/workspaces/${ws.id}/members`).then((res) =>
-          res.data.map((m) => ({ ...m, workspaceName: ws.name }))
-        ).catch(() => [])
-      );
-      const activityPromises = wsList.map((ws) =>
-        api.get(`/workspaces/${ws.id}/activities`).then((res) =>
-          res.data.map((a) => ({ ...a, workspaceName: ws.name }))
-        ).catch(() => [])
+        api
+          .get(`/workspaces/${ws.id}/boards`)
+          .then((res) =>
+            res.data.map((b) => ({
+              ...b,
+              workspaceName: ws.name,
+              workspaceId: ws.id,
+            }))
+          )
+          .catch(() => [])
       );
 
-      const boardsResults = await Promise.all(boardPromises);
-      const membersResults = await Promise.all(memberPromises);
-      const activitiesResults = await Promise.all(activityPromises);
+      const memberPromises = wsList.map((ws) =>
+        api
+          .get(`/workspaces/${ws.id}/members`)
+          .then((res) =>
+            res.data.map((m) => ({ ...m, workspaceName: ws.name }))
+          )
+          .catch(() => [])
+      );
+
+      const activityPromises = wsList.map((ws) =>
+        api
+          .get(`/workspaces/${ws.id}/activities`)
+          .then((res) =>
+            res.data.map((a) => ({ ...a, workspaceName: ws.name }))
+          )
+          .catch(() => [])
+      );
+
+      const [boardsResults, membersResults, activitiesResults] =
+        await Promise.all([
+          Promise.all(boardPromises),
+          Promise.all(memberPromises),
+          Promise.all(activityPromises),
+        ]);
 
       setAllBoards(boardsResults.flat());
       setAllMembers(membersResults.flat());
-      setAllActivities(activitiesResults.flat().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+      setAllActivities(
+        activitiesResults
+          .flat()
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      );
     } catch (error) {
       console.error("Failed to fetch workspaces:", error);
     } finally {
@@ -142,8 +170,14 @@ const Dashboard = () => {
       b.workspaceName?.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const totalBoardsCount = workspaces.reduce((acc, w) => acc + (w._count?.boards || 0), 0);
-  const totalMembersCount = workspaces.reduce((acc, w) => acc + (w._count?.members || 0), 0);
+  const totalBoardsCount = workspaces.reduce(
+    (acc, w) => acc + (w._count?.boards || 0),
+    0
+  );
+  const totalMembersCount = workspaces.reduce(
+    (acc, w) => acc + (w._count?.members || 0),
+    0
+  );
 
   const handleNavClick = (label) => {
     if (label === "Settings") {
@@ -154,367 +188,503 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#DFDBD4] flex">
+    <div className="min-h-screen bg-[#F4F1EC] flex text-[#1E293B]">
       <CommandPalette />
 
-      {/* ─── Left Sidebar ─── */}
-      <aside className="w-[260px] bg-white border-r border-[#C9C3BB] flex-shrink-0 flex flex-col h-screen sticky top-0">
+      {/* ─── Sidebar ─── */}
+      <aside className="w-[248px] bg-white border-r border-[#E5E0D8] flex-shrink-0 flex flex-col h-screen sticky top-0">
         {/* Logo */}
-        <div className="px-5 pt-5 pb-4">
-          <div className="flex items-center gap-2.5 cursor-pointer" onClick={() => setActiveNav("Dashboard")}>
-            <div className="w-9 h-9 bg-[#D47E30] rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <div className="px-5 pt-5 pb-5">
+          <div
+            className="flex items-center gap-2.5 cursor-pointer group"
+            onClick={() => setActiveNav("Dashboard")}
+          >
+            <div className="w-8 h-8 bg-[#D47E30] rounded-lg flex items-center justify-center shadow-sm group-hover:shadow transition-shadow">
+              <svg
+                className="w-4.5 h-4.5 text-white"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM17 14v6M14 17h6" />
               </svg>
             </div>
-            <span className="text-lg font-bold text-[#1E293B] tracking-tight">CollabFlow</span>
+            <span className="text-[17px] font-semibold tracking-tight text-[#1E293B]">
+              CollabFlow
+            </span>
           </div>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto">
-          {NAV_ITEMS.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => handleNavClick(item.label)}
-              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
-                activeNav === item.label
-                  ? "bg-[#FEF3E7] text-[#D47E30] font-semibold shadow-sm"
-                  : "text-[#475569] hover:bg-[#F8F6F2] hover:text-[#1E293B]"
-              }`}
-            >
-              <NavIcon icon={item.icon} className={`w-[18px] h-[18px] ${activeNav === item.label ? "text-[#D47E30]" : "text-[#94a3b8]"}`} />
-              {item.label}
-            </button>
-          ))}
+        {/* Navigation */}
+        <nav className="flex-1 px-3 space-y-0.5 overflow-y-auto pb-4">
+          {NAV_ITEMS.map((item) => {
+            const isActive = activeNav === item.label;
+            return (
+              <button
+                key={item.label}
+                onClick={() => handleNavClick(item.label)}
+                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[13.5px] font-medium transition-all duration-150 ${
+                  isActive
+                    ? "bg-[#FEF3E7] text-[#D47E30]"
+                    : "text-[#64748B] hover:bg-[#F8F6F2] hover:text-[#1E293B]"
+                }`}
+              >
+                <NavIcon
+                  icon={item.icon}
+                  className={`w-[18px] h-[18px] ${
+                    isActive ? "text-[#D47E30]" : "text-[#94A3B8]"
+                  }`}
+                />
+                {item.label}
+              </button>
+            );
+          })}
 
-          {/* Starred Workspaces */}
+          {/* Starred */}
           {workspaces.length > 0 && (
-            <div className="pt-5 mt-3 border-t border-[#E5E7EB]">
-              <p className="px-3 text-[11px] font-bold text-[#94a3b8] uppercase tracking-wider mb-2">Starred Workspaces</p>
-              {workspaces.slice(0, 4).map((ws, i) => (
-                <button
-                  key={ws.id}
-                  onClick={() => navigate(`/workspace/${ws.id}`)}
-                  className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-[#475569] hover:bg-[#F8F6F2] hover:text-[#1E293B] transition-all group"
-                >
-                  <div className={`w-6 h-6 ${WORKSPACE_COLORS[i % WORKSPACE_COLORS.length]} rounded-md flex items-center justify-center text-white text-[10px] font-bold flex-shrink-0`}>
-                    {ws.name.charAt(0).toUpperCase()}
-                  </div>
-                  <span className="truncate font-medium">{ws.name}</span>
-                  {i === 0 && <span className="ml-auto text-amber-400 text-xs">★</span>}
-                </button>
-              ))}
-              {workspaces.length > 4 && (
-                <button
-                  onClick={() => setActiveNav("Workspaces")}
-                  className="w-full flex items-center gap-2 px-3 py-2 text-xs text-[#475569] hover:text-[#D47E30] transition-colors"
-                >
-                  View all
-                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
-              )}
+            <div className="pt-6 mt-2">
+              <p className="px-3 mb-2 text-[11px] font-semibold text-[#94A3B8] uppercase tracking-wider">
+                Starred
+              </p>
+              <div className="space-y-0.5">
+                {workspaces.slice(0, 4).map((ws, i) => (
+                  <button
+                    key={ws.id}
+                    onClick={() => navigate(`/workspace/${ws.id}`)}
+                    className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] text-[#64748B] hover:bg-[#F8F6F2] hover:text-[#1E293B] transition-all group"
+                  >
+                    <div
+                      className={`w-5 h-5 ${WORKSPACE_COLORS[i % WORKSPACE_COLORS.length]} rounded flex items-center justify-center text-white text-[10px] font-semibold flex-shrink-0`}
+                    >
+                      {ws.name.charAt(0).toUpperCase()}
+                    </div>
+                    <span className="truncate font-medium">{ws.name}</span>
+                    {i === 0 && (
+                      <span className="ml-auto text-amber-400 text-xs">★</span>
+                    )}
+                  </button>
+                ))}
+                {workspaces.length > 4 && (
+                  <button
+                    onClick={() => setActiveNav("Workspaces")}
+                    className="w-full flex items-center gap-1.5 px-3 py-1.5 text-[12px] text-[#94A3B8] hover:text-[#D47E30] transition-colors"
+                  >
+                    View all
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </button>
+                )}
+              </div>
             </div>
           )}
         </nav>
 
-        {/* Bottom: User Profile Trigger */}
-        <div className="px-3 py-3 border-t border-[#E5E7EB]">
-          <div
+        {/* User */}
+        <div className="px-3 py-3 border-t border-[#E5E0D8]">
+          <button
             onClick={() => setShowSettingsModal(true)}
-            className="flex items-center gap-3 px-2 py-2 rounded-xl hover:bg-[#F8F6F2] transition-all cursor-pointer group"
+            className="w-full flex items-center gap-2.5 px-2 py-2 rounded-lg hover:bg-[#F8F6F2] transition-all group text-left"
           >
-            <div className="w-9 h-9 bg-[#D47E30] rounded-full flex items-center justify-center text-white font-bold text-sm flex-shrink-0">
+            <div className="w-8 h-8 bg-[#D47E30] rounded-full flex items-center justify-center text-white font-semibold text-sm flex-shrink-0">
               {user?.name?.charAt(0)?.toUpperCase() || "U"}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-sm font-semibold text-[#1E293B] truncate">{user?.name || "User"}</p>
-              <p className="text-[11px] text-[#94a3b8] truncate">Owner • Settings</p>
+              <p className="text-[13px] font-medium text-[#1E293B] truncate">
+                {user?.name || "User"}
+              </p>
+              <p className="text-[11px] text-[#94A3B8] truncate">Account</p>
             </div>
-            <svg className="w-4 h-4 text-[#94a3b8] group-hover:text-[#475569]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 5v.01M12 12v.01M12 19v.01" />
+            <svg
+              className="w-4 h-4 text-[#CBD5E1] group-hover:text-[#94A3B8] transition-colors"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 5v.01M12 12v.01M12 19v.01"
+              />
             </svg>
-          </div>
+          </button>
         </div>
       </aside>
 
-      {/* ─── Main Content ─── */}
+      {/* ─── Main ─── */}
       <div className="flex-1 flex flex-col min-w-0">
-        {/* Top Header Bar */}
-        <header className="h-16 px-6 bg-white border-b border-[#C9C3BB] flex items-center justify-between sticky top-0 z-30">
-          <div className="flex items-center gap-3">
-            <h1 className="text-lg font-bold text-[#1E293B]">{activeNav}</h1>
+        {/* Header */}
+        <header className="h-14 px-6 bg-white/80 backdrop-blur-sm border-b border-[#E5E0D8] flex items-center justify-between sticky top-0 z-30">
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-[15px] font-semibold text-[#1E293B]">
+              {activeNav}
+            </h1>
             {activeNav !== "Dashboard" && (
-              <span className="text-xs text-[#94a3b8] bg-[#F8F6F2] px-2.5 py-1 rounded-full border border-[#C9C3BB]">
+              <span className="text-[11px] text-[#94A3B8] bg-[#F8F6F2] px-2 py-0.5 rounded-md">
                 Overview
               </span>
             )}
           </div>
 
-          <div className="flex items-center gap-3">
-            {/* Search */}
+          <div className="flex items-center gap-2.5">
             <div className="relative hidden md:block">
-              <svg className="w-4 h-4 text-[#94a3b8] absolute left-3 top-1/2 -translate-y-1/2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              <svg
+                className="w-4 h-4 text-[#94A3B8] absolute left-3 top-1/2 -translate-y-1/2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search anything..."
-                className="glass-input rounded-lg pl-9 pr-16 py-2 text-sm w-56 focus:w-72 transition-all"
+                placeholder="Search..."
+                className="bg-[#F8F6F2] border border-transparent focus:border-[#E5E0D8] focus:bg-white rounded-lg pl-9 pr-14 py-1.5 text-[13px] w-52 focus:w-64 transition-all outline-none placeholder:text-[#94A3B8]"
               />
-              <kbd className="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono text-[#94a3b8] bg-[#F1F1EF] px-1.5 py-0.5 rounded border border-[#C9C3BB]">⌘ K</kbd>
+              <kbd className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[10px] font-medium text-[#94A3B8] bg-white px-1.5 py-0.5 rounded border border-[#E5E0D8]">
+                ⌘K
+              </kbd>
             </div>
 
-            {/* Notifications */}
+            {/* Real-Time Notification Bell */}
             <NotificationBell />
 
-            {/* + New Button */}
             <button
               onClick={() => setShowCreateModal(true)}
-              className="btn-glow px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5"
+              className="bg-[#D47E30] hover:bg-[#C06F28] text-white px-3.5 py-1.5 rounded-lg text-[13px] font-medium flex items-center gap-1.5 transition-colors shadow-sm"
             >
-              <span>+</span>
-              <span>New Workspace</span>
+              <span className="text-[15px] leading-none">+</span>
+              New
             </button>
 
-            {/* User Profile Menu */}
             <UserProfileMenu />
           </div>
         </header>
 
-        {/* Dynamic Page Content Based on activeNav */}
-        <main className="flex-1 overflow-y-auto px-6 py-6 space-y-6">
-
-          {/* VIEW 1: DASHBOARD MAIN OVERVIEW */}
+        {/* Content */}
+        <main className="flex-1 overflow-y-auto px-6 py-6">
+          {/* ── Dashboard ── */}
           {activeNav === "Dashboard" && (
-            <>
-              {/* Welcome Banner */}
-              <div className="bg-[#F8F6F2] rounded-2xl p-6 sm:p-8 border border-[#C9C3BB] relative overflow-hidden">
-                <div className="flex flex-wrap items-center justify-between gap-6 relative z-10">
-                  <div>
-                    <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1E293B] tracking-tight">
-                      Welcome back, {user?.name || "Developer"}! 👋
-                    </h2>
-                    <p className="text-sm text-[#475569] mt-1.5">
-                      Here's what's happening in your workspaces today.
-                    </p>
-                    <div className="flex items-center gap-3 mt-5">
-                      <button
-                        onClick={() => setShowCreateModal(true)}
-                        className="btn-glow px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"
-                      >
-                        Create Workspace
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-                        </svg>
-                      </button>
-                      <button
-                        onClick={() => setActiveNav("Members")}
-                        className="bg-white border border-[#C9C3BB] text-[#1E293B] px-5 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 hover:border-[#8B5E3C] transition-all hover:shadow-sm"
-                      >
-                        Invite Members
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                        </svg>
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="hidden lg:block w-48 h-32 relative">
-                    <svg viewBox="0 0 200 140" fill="none" className="w-full h-full">
-                      <rect x="30" y="50" width="40" height="60" rx="8" fill="#D47E30" opacity="0.15" />
-                      <circle cx="50" cy="40" r="15" fill="#D47E30" opacity="0.2" />
-                      <rect x="80" y="40" width="40" height="70" rx="8" fill="#8B5E3C" opacity="0.15" />
-                      <circle cx="100" cy="30" r="15" fill="#8B5E3C" opacity="0.2" />
-                      <rect x="130" y="55" width="40" height="55" rx="8" fill="#D47E30" opacity="0.12" />
-                      <circle cx="150" cy="45" r="15" fill="#D47E30" opacity="0.18" />
-                      <rect x="20" y="105" width="160" height="6" rx="3" fill="#C9C3BB" opacity="0.4" />
-                    </svg>
-                  </div>
+            <div className="space-y-7 max-w-[1200px]">
+              {/* Welcome */}
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
+                <div>
+                  <h2 className="text-[22px] font-semibold tracking-tight text-[#1E293B]">
+                    Welcome back, {user?.name?.split(" ")[0] || "there"}
+                  </h2>
+                  <p className="text-[13.5px] text-[#64748B] mt-1">
+                    Here’s a quick look at what’s happening across your workspaces.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => setShowCreateModal(true)}
+                    className="bg-[#D47E30] hover:bg-[#C06F28] text-white px-4 py-2 rounded-lg text-[13px] font-medium transition-colors"
+                  >
+                    Create workspace
+                  </button>
+                  <button
+                    onClick={() => setActiveNav("Members")}
+                    className="bg-white border border-[#E5E0D8] hover:border-[#D4CCC0] text-[#1E293B] px-4 py-2 rounded-lg text-[13px] font-medium transition-colors"
+                  >
+                    Invite people
+                  </button>
                 </div>
               </div>
 
-              {/* Stats Row */}
-              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+              {/* Stats */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
                 {[
-                  { label: "Workspaces", value: workspaces.length, color: "bg-[#D47E30]", navTarget: "Workspaces" },
-                  { label: "Boards", value: totalBoardsCount, color: "bg-[#3B82F6]", navTarget: "Boards" },
-                  { label: "Tasks", value: "—", color: "bg-[#22C55E]", navTarget: "Tasks" },
-                  { label: "Members", value: totalMembersCount, color: "bg-[#A855F7]", navTarget: "Members" },
-                  { label: "Due Today", value: "—", color: "bg-[#EF4444]", navTarget: "Calendar" },
+                  {
+                    label: "Workspaces",
+                    value: workspaces.length,
+                    target: "Workspaces",
+                  },
+                  {
+                    label: "Boards",
+                    value: totalBoardsCount,
+                    target: "Boards",
+                  },
+                  { label: "Tasks", value: "—", target: "Tasks" },
+                  {
+                    label: "Members",
+                    value: totalMembersCount,
+                    target: "Members",
+                  },
+                  { label: "Due today", value: "—", target: "Calendar" },
                 ].map((stat) => (
-                  <div
+                  <button
                     key={stat.label}
-                    onClick={() => setActiveNav(stat.navTarget)}
-                    className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-xl p-4 hover:shadow-md transition-all cursor-pointer group"
+                    onClick={() => setActiveNav(stat.target)}
+                    className="bg-white border border-[#E5E0D8] rounded-xl px-4 py-3.5 text-left hover:border-[#D4CCC0] hover:shadow-sm transition-all group"
                   >
-                    <div className="flex items-center gap-3">
-                      <div className={`w-10 h-10 ${stat.color} rounded-full flex items-center justify-center opacity-90 text-white font-bold text-sm`}>
-                        {String(stat.value).charAt(0)}
-                      </div>
-                      <div>
-                        <p className="text-2xl font-extrabold text-[#1E293B] group-hover:text-[#D47E30] transition-colors">{stat.value}</p>
-                        <p className="text-xs text-[#94a3b8] font-medium">{stat.label}</p>
-                      </div>
-                    </div>
-                    <p className="text-[11px] text-[#D47E30] font-semibold mt-2 group-hover:underline">View {stat.label} →</p>
-                  </div>
+                    <p className="text-[22px] font-semibold tracking-tight text-[#1E293B] group-hover:text-[#D47E30] transition-colors">
+                      {stat.value}
+                    </p>
+                    <p className="text-[12px] text-[#94A3B8] mt-0.5">
+                      {stat.label}
+                    </p>
+                  </button>
                 ))}
               </div>
 
-              {/* Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                {/* Your Workspaces */}
-                <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-xl p-5">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-base font-bold text-[#1E293B]">Your Workspaces</h3>
-                    <button onClick={() => setActiveNav("Workspaces")} className="text-xs text-[#D47E30] font-semibold hover:text-[#B96322] transition-colors">
+              {/* Three-column content */}
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+                {/* Workspaces list */}
+                <div className="bg-white border border-[#E5E0D8] rounded-xl overflow-hidden">
+                  <div className="px-4 py-3.5 border-b border-[#F1EDE6] flex items-center justify-between">
+                    <h3 className="text-[13.5px] font-semibold text-[#1E293B]">
+                      Your workspaces
+                    </h3>
+                    <button
+                      onClick={() => setActiveNav("Workspaces")}
+                      className="text-[12px] text-[#D47E30] hover:text-[#C06F28] font-medium transition-colors"
+                    >
                       View all
                     </button>
                   </div>
 
-                  {loading ? (
-                    <div className="space-y-3">
-                      {[1, 2, 3].map((i) => (
-                        <div key={i} className="h-14 bg-[#E5E7EB] rounded-xl animate-pulse" />
-                      ))}
-                    </div>
-                  ) : filteredWorkspaces.length === 0 ? (
-                    <div className="text-center py-8">
-                      <p className="text-sm text-[#94a3b8]">No workspaces yet</p>
-                      <button onClick={() => setShowCreateModal(true)} className="mt-3 text-sm text-[#D47E30] font-semibold hover:text-[#B96322]">
-                        + Create Workspace
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-2">
-                      {filteredWorkspaces.slice(0, 5).map((ws, i) => (
-                        <button
-                          key={ws.id}
-                          onClick={() => navigate(`/workspace/${ws.id}`)}
-                          className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-white transition-all group text-left"
-                        >
-                          <div className={`w-9 h-9 ${WORKSPACE_COLORS[i % WORKSPACE_COLORS.length]} rounded-lg flex items-center justify-center text-white font-bold text-sm flex-shrink-0`}>
-                            {ws.name.charAt(0).toUpperCase()}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="text-sm font-semibold text-[#1E293B] truncate group-hover:text-[#D47E30] transition-colors">{ws.name}</p>
-                            <p className="text-[11px] text-[#94a3b8]">{ws._count?.members || 1} members</p>
-                          </div>
-                          {i === 0 && <span className="text-amber-400 text-sm">★</span>}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  <button
-                    onClick={() => setShowCreateModal(true)}
-                    className="w-full mt-4 py-2.5 border border-dashed border-[#D47E30] text-[#D47E30] rounded-xl text-sm font-semibold hover:bg-[#FEF3E7] transition-all"
-                  >
-                    + Create Workspace
-                  </button>
-                </div>
-
-                {/* Recent Activity */}
-                <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-xl p-5">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-base font-bold text-[#1E293B]">Recent Activity</h3>
-                    <button onClick={() => setActiveNav("Activity")} className="text-xs text-[#D47E30] font-semibold hover:text-[#B96322] transition-colors">
-                      View all
-                    </button>
-                  </div>
-
-                  {allActivities.length > 0 ? (
-                    <div className="space-y-4">
-                      {allActivities.slice(0, 4).map((act) => (
-                        <div key={act.id} className="flex items-start gap-3">
-                          <div className="w-2 h-2 rounded-full bg-[#22C55E] mt-2 flex-shrink-0" />
-                          <div>
-                            <p className="text-sm text-[#1E293B]">
-                              <span className="font-semibold">{act.user?.name || "User"}</span>{" "}
-                              <span>{act.action}</span>
-                            </p>
-                            <p className="text-[11px] text-[#94a3b8] mt-0.5">{act.workspaceName}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-sm text-[#94a3b8] text-center py-8">No recent activity logged</p>
-                  )}
-                </div>
-
-                {/* Upcoming Calendar */}
-                <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-xl p-5">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-base font-bold text-[#1E293B]">Upcoming</h3>
-                    <button onClick={() => setActiveNav("Calendar")} className="text-xs text-[#D47E30] font-semibold hover:text-[#B96322] transition-colors">
-                      View calendar
-                    </button>
-                  </div>
-
-                  <div className="space-y-3">
-                    {[
-                      { month: "AUG", day: "18", title: "Sprint Review", time: "10:00 AM – 10:30 AM" },
-                      { month: "AUG", day: "18", title: "Design Feedback", time: "2:00 PM – 3:00 PM" },
-                      { month: "AUG", day: "19", title: "Team Planning", time: "11:00 AM – 12:30 PM" },
-                      { month: "AUG", day: "20", title: "Release Deployment", time: "3:00 PM – 4:00 PM" },
-                    ].map((event, i) => (
-                      <div key={i} className="flex items-center gap-3 p-2 rounded-lg hover:bg-white transition-all cursor-pointer" onClick={() => setActiveNav("Calendar")}>
-                        <div className="w-12 h-12 bg-white border border-[#C9C3BB] rounded-xl flex flex-col items-center justify-center flex-shrink-0">
-                          <span className="text-[9px] font-bold text-[#D47E30] uppercase">{event.month}</span>
-                          <span className="text-base font-extrabold text-[#1E293B] leading-none">{event.day}</span>
-                        </div>
-                        <div>
-                          <p className="text-sm font-semibold text-[#1E293B]">{event.title}</p>
-                          <p className="text-[11px] text-[#94a3b8]">{event.time}</p>
-                        </div>
+                  <div className="p-2">
+                    {loading ? (
+                      <div className="space-y-1 p-1">
+                        {[1, 2, 3].map((i) => (
+                          <div
+                            key={i}
+                            className="h-12 bg-[#F8F6F2] rounded-lg animate-pulse"
+                          />
+                        ))}
                       </div>
+                    ) : filteredWorkspaces.length === 0 ? (
+                      <div className="py-10 text-center">
+                        <p className="text-[13px] text-[#94A3B8]">
+                          No workspaces yet
+                        </p>
+                        <button
+                          onClick={() => setShowCreateModal(true)}
+                          className="mt-2 text-[13px] text-[#D47E30] font-medium hover:text-[#C06F28]"
+                        >
+                          Create one
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="space-y-0.5">
+                        {filteredWorkspaces.slice(0, 5).map((ws, i) => (
+                          <button
+                            key={ws.id}
+                            onClick={() => navigate(`/workspace/${ws.id}`)}
+                            className="w-full flex items-center gap-3 px-2.5 py-2.5 rounded-lg hover:bg-[#F8F6F2] transition-colors text-left group"
+                          >
+                            <div
+                              className={`w-8 h-8 ${WORKSPACE_COLORS[i % WORKSPACE_COLORS.length]} rounded-lg flex items-center justify-center text-white text-[12px] font-semibold flex-shrink-0`}
+                            >
+                              {ws.name.charAt(0).toUpperCase()}
+                            </div>
+                            <div className="min-w-0 flex-1">
+                              <p className="text-[13px] font-medium text-[#1E293B] truncate group-hover:text-[#D47E30] transition-colors">
+                                {ws.name}
+                              </p>
+                              <p className="text-[11px] text-[#94A3B8]">
+                                {ws._count?.members || 1} member
+                                {(ws._count?.members || 1) !== 1 ? "s" : ""}
+                              </p>
+                            </div>
+                            {i === 0 && (
+                              <span className="text-amber-400 text-sm">★</span>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="px-3 pb-3">
+                    <button
+                      onClick={() => setShowCreateModal(true)}
+                      className="w-full py-2 border border-dashed border-[#E5E0D8] text-[#94A3B8] hover:border-[#D47E30] hover:text-[#D47E30] rounded-lg text-[12.5px] font-medium transition-colors"
+                    >
+                      + New workspace
+                    </button>
+                  </div>
+                </div>
+
+                {/* Activity */}
+                <div className="bg-white border border-[#E5E0D8] rounded-xl overflow-hidden">
+                  <div className="px-4 py-3.5 border-b border-[#F1EDE6] flex items-center justify-between">
+                    <h3 className="text-[13.5px] font-semibold text-[#1E293B]">
+                      Recent activity
+                    </h3>
+                    <button
+                      onClick={() => setActiveNav("Activity")}
+                      className="text-[12px] text-[#D47E30] hover:text-[#C06F28] font-medium transition-colors"
+                    >
+                      View all
+                    </button>
+                  </div>
+
+                  <div className="p-4">
+                    {allActivities.length > 0 ? (
+                      <div className="space-y-4">
+                        {allActivities.slice(0, 4).map((act) => (
+                          <div key={act.id} className="flex gap-3">
+                            <div className="w-1.5 h-1.5 rounded-full bg-[#22C55E] mt-1.5 flex-shrink-0" />
+                            <div className="min-w-0">
+                              <p className="text-[13px] text-[#1E293B] leading-snug">
+                                <span className="font-medium">
+                                  {act.user?.name || "Someone"}
+                                </span>{" "}
+                                <span className="text-[#64748B]">
+                                  {act.action}
+                                </span>
+                              </p>
+                              <p className="text-[11px] text-[#94A3B8] mt-0.5">
+                                {act.workspaceName}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-[13px] text-[#94A3B8] text-center py-8">
+                        No recent activity
+                      </p>
+                    )}
+                  </div>
+                </div>
+
+                {/* Upcoming */}
+                <div className="bg-white border border-[#E5E0D8] rounded-xl overflow-hidden">
+                  <div className="px-4 py-3.5 border-b border-[#F1EDE6] flex items-center justify-between">
+                    <h3 className="text-[13.5px] font-semibold text-[#1E293B]">
+                      Upcoming
+                    </h3>
+                    <button
+                      onClick={() => setActiveNav("Calendar")}
+                      className="text-[12px] text-[#D47E30] hover:text-[#C06F28] font-medium transition-colors"
+                    >
+                      Calendar
+                    </button>
+                  </div>
+
+                  <div className="p-3 space-y-1">
+                    {[
+                      {
+                        month: "AUG",
+                        day: "18",
+                        title: "Sprint review",
+                        time: "10:00 – 10:30 AM",
+                      },
+                      {
+                        month: "AUG",
+                        day: "18",
+                        title: "Design feedback",
+                        time: "2:00 – 3:00 PM",
+                      },
+                      {
+                        month: "AUG",
+                        day: "19",
+                        title: "Team planning",
+                        time: "11:00 – 12:30 PM",
+                      },
+                      {
+                        month: "AUG",
+                        day: "20",
+                        title: "Release deployment",
+                        time: "3:00 – 4:00 PM",
+                      },
+                    ].map((event, i) => (
+                      <button
+                        key={i}
+                        onClick={() => setActiveNav("Calendar")}
+                        className="w-full flex items-center gap-3 p-2 rounded-lg hover:bg-[#F8F6F2] transition-colors text-left"
+                      >
+                        <div className="w-11 h-11 bg-[#F8F6F2] rounded-lg flex flex-col items-center justify-center flex-shrink-0">
+                          <span className="text-[9px] font-semibold text-[#D47E30] uppercase tracking-wide">
+                            {event.month}
+                          </span>
+                          <span className="text-[15px] font-semibold text-[#1E293B] leading-none">
+                            {event.day}
+                          </span>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="text-[13px] font-medium text-[#1E293B] truncate">
+                            {event.title}
+                          </p>
+                          <p className="text-[11px] text-[#94A3B8]">
+                            {event.time}
+                          </p>
+                        </div>
+                      </button>
                     ))}
                   </div>
                 </div>
               </div>
 
-              {/* Workspace Cards Grid */}
+              {/* All workspaces grid */}
               {filteredWorkspaces.length > 0 && (
                 <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <h3 className="text-base font-bold text-[#1E293B]">All Workspaces</h3>
-                      <p className="text-xs text-[#94a3b8] mt-0.5">Select a workspace to manage boards and tasks</p>
-                    </div>
+                  <div className="mb-3">
+                    <h3 className="text-[14px] font-semibold text-[#1E293B]">
+                      All workspaces
+                    </h3>
+                    <p className="text-[12.5px] text-[#94A3B8] mt-0.5">
+                      Open a workspace to manage boards and tasks
+                    </p>
                   </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                     {filteredWorkspaces.map((workspace) => (
-                      <WorkspaceCard key={workspace.id} workspace={workspace} />
+                      <WorkspaceCard
+                        key={workspace.id}
+                        workspace={workspace}
+                      />
                     ))}
                   </div>
                 </div>
               )}
-            </>
+            </div>
           )}
 
-          {/* VIEW 2: WORKSPACES TAB */}
+          {/* ── Workspaces ── */}
           {activeNav === "Workspaces" && (
-            <div className="space-y-6">
+            <div className="space-y-5 max-w-[1200px]">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-extrabold text-[#1E293B]">Workspaces Overview</h2>
-                  <p className="text-sm text-[#94a3b8] mt-1">Manage and access all your team workspaces</p>
+                  <h2 className="text-[20px] font-semibold tracking-tight text-[#1E293B]">
+                    Workspaces
+                  </h2>
+                  <p className="text-[13px] text-[#64748B] mt-0.5">
+                    Manage and switch between your team spaces
+                  </p>
                 </div>
                 <button
                   onClick={() => setShowCreateModal(true)}
-                  className="btn-glow px-5 py-2.5 rounded-xl text-sm font-bold flex items-center gap-2"
+                  className="bg-[#D47E30] hover:bg-[#C06F28] text-white px-4 py-2 rounded-lg text-[13px] font-medium transition-colors"
                 >
-                  + New Workspace
+                  + New workspace
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                 {filteredWorkspaces.map((workspace) => (
                   <WorkspaceCard key={workspace.id} workspace={workspace} />
                 ))}
@@ -522,108 +692,173 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* VIEW 3: BOARDS TAB */}
+          {/* ── Boards ── */}
           {activeNav === "Boards" && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-extrabold text-[#1E293B]">All Workspace Boards</h2>
-                  <p className="text-sm text-[#94a3b8] mt-1">Directly access Kanban boards across all your workspaces</p>
-                </div>
+            <div className="space-y-5 max-w-[1200px]">
+              <div>
+                <h2 className="text-[20px] font-semibold tracking-tight text-[#1E293B]">
+                  Boards
+                </h2>
+                <p className="text-[13px] text-[#64748B] mt-0.5">
+                  Jump into any Kanban board across your workspaces
+                </p>
               </div>
 
               {filteredBoards.length === 0 ? (
-                <div className="bg-[#F8F6F2] rounded-2xl p-12 text-center border border-[#C9C3BB]">
-                  <p className="text-[#94a3b8] text-sm">No boards created yet.</p>
-                  <p className="text-xs text-[#94a3b8] mt-1">Open a workspace to create your first Kanban board.</p>
+                <div className="bg-white border border-[#E5E0D8] rounded-xl py-16 text-center">
+                  <p className="text-[14px] text-[#64748B]">
+                    No boards yet
+                  </p>
+                  <p className="text-[12.5px] text-[#94A3B8] mt-1">
+                    Open a workspace to create your first board
+                  </p>
                 </div>
               ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {filteredBoards.map((board) => (
-                    <div
+                    <button
                       key={board.id}
-                      onClick={() => navigate(`/workspace/${board.workspaceId}/board/${board.id}`)}
-                      className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-5 hover:border-[#D47E30] transition-all cursor-pointer group"
+                      onClick={() =>
+                        navigate(
+                          `/workspace/${board.workspaceId}/board/${board.id}`
+                        )
+                      }
+                      className="bg-white border border-[#E5E0D8] rounded-xl p-4 text-left hover:border-[#D4CCC0] hover:shadow-sm transition-all group"
                     >
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-xs font-bold text-[#D47E30] bg-[#FEF3E7] px-2.5 py-1 rounded-full border border-[#D47E30]/20">
+                      <div className="flex items-center justify-between mb-2.5">
+                        <span className="text-[11px] font-medium text-[#D47E30] bg-[#FEF3E7] px-2 py-0.5 rounded">
                           {board.workspaceName}
                         </span>
-                        <span className="text-xs text-[#94a3b8]">Kanban</span>
+                        <span className="text-[11px] text-[#94A3B8]">
+                          Kanban
+                        </span>
                       </div>
-                      <h3 className="text-lg font-bold text-[#1E293B] group-hover:text-[#D47E30] transition-colors">{board.title}</h3>
-                      <p className="text-xs text-[#D47E30] font-bold mt-4 inline-flex items-center gap-1">
-                        Open Board →
+                      <h3 className="text-[15px] font-medium text-[#1E293B] group-hover:text-[#D47E30] transition-colors">
+                        {board.title}
+                      </h3>
+                      <p className="text-[12px] text-[#D47E30] font-medium mt-3">
+                        Open board →
                       </p>
-                    </div>
+                    </button>
                   ))}
                 </div>
               )}
             </div>
           )}
 
-          {/* VIEW 4: TASKS TAB */}
+          {/* ── Tasks ── */}
           {activeNav === "Tasks" && (
-            <div className="space-y-6">
+            <div className="space-y-5 max-w-[900px]">
               <div>
-                <h2 className="text-2xl font-extrabold text-[#1E293B]">All Tasks Overview</h2>
-                <p className="text-sm text-[#94a3b8] mt-1">Aggregated task list across your workspaces</p>
+                <h2 className="text-[20px] font-semibold tracking-tight text-[#1E293B]">
+                  Tasks
+                </h2>
+                <p className="text-[13px] text-[#64748B] mt-0.5">
+                  Boards that contain your active work
+                </p>
               </div>
 
-              <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-6">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-base font-bold text-[#1E293B]">Assigned & Active Tasks</h3>
-                  <span className="text-xs text-[#94a3b8] bg-white border border-[#C9C3BB] px-3 py-1 rounded-full font-semibold">
-                    {allBoards.length} Boards connected
+              <div className="bg-white border border-[#E5E0D8] rounded-xl overflow-hidden">
+                <div className="px-4 py-3 border-b border-[#F1EDE6] flex items-center justify-between">
+                  <h3 className="text-[13.5px] font-semibold text-[#1E293B]">
+                    Connected boards
+                  </h3>
+                  <span className="text-[11px] text-[#94A3B8]">
+                    {allBoards.length} board
+                    {allBoards.length !== 1 ? "s" : ""}
                   </span>
                 </div>
 
-                <div className="space-y-3">
+                <div className="divide-y divide-[#F1EDE6]">
                   {allBoards.length > 0 ? (
                     allBoards.map((b) => (
-                      <div
+                      <button
                         key={b.id}
-                        onClick={() => navigate(`/workspace/${b.workspaceId}/board/${b.id}`)}
-                        className="flex items-center justify-between p-4 bg-white border border-[#E5E7EB] rounded-xl hover:border-[#D47E30] cursor-pointer transition-all"
+                        onClick={() =>
+                          navigate(
+                            `/workspace/${b.workspaceId}/board/${b.id}`
+                          )
+                        }
+                        className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-[#F8F6F2] transition-colors text-left"
                       >
                         <div>
-                          <p className="text-sm font-bold text-[#1E293B]">{b.title}</p>
-                          <p className="text-xs text-[#94a3b8]">{b.workspaceName} Workspace</p>
+                          <p className="text-[13.5px] font-medium text-[#1E293B]">
+                            {b.title}
+                          </p>
+                          <p className="text-[12px] text-[#94A3B8]">
+                            {b.workspaceName}
+                          </p>
                         </div>
-                        <span className="text-xs font-bold text-[#D47E30]">View Board Tasks →</span>
-                      </div>
+                        <span className="text-[12px] font-medium text-[#D47E30]">
+                          View →
+                        </span>
+                      </button>
                     ))
                   ) : (
-                    <p className="text-sm text-[#94a3b8] text-center py-6">No active tasks or boards found.</p>
+                    <p className="text-[13px] text-[#94A3B8] text-center py-10">
+                      No boards found
+                    </p>
                   )}
                 </div>
               </div>
             </div>
           )}
 
-          {/* VIEW 5: CALENDAR TAB */}
+          {/* ── Calendar ── */}
           {activeNav === "Calendar" && (
-            <div className="space-y-6">
+            <div className="space-y-5 max-w-[900px]">
               <div>
-                <h2 className="text-2xl font-extrabold text-[#1E293B]">Schedule & Deadlines</h2>
-                <p className="text-sm text-[#94a3b8] mt-1">Upcoming milestones, sprints, and task due dates</p>
+                <h2 className="text-[20px] font-semibold tracking-tight text-[#1E293B]">
+                  Calendar
+                </h2>
+                <p className="text-[13px] text-[#64748B] mt-0.5">
+                  Upcoming meetings and deadlines
+                </p>
               </div>
 
-              <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-white border border-[#E5E0D8] rounded-xl p-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {[
-                    { date: "Today", title: "Team Daily Standup", time: "10:00 AM", category: "Meeting" },
-                    { date: "Aug 18", title: "Q3 Roadmap Sprint Planning", time: "2:00 PM", category: "Sprint" },
-                    { date: "Aug 19", title: "Frontend Design Sync", time: "11:30 AM", category: "Review" },
-                    { date: "Aug 21", title: "Production Deployment", time: "4:00 PM", category: "Release" },
+                    {
+                      date: "Today",
+                      title: "Team daily standup",
+                      time: "10:00 AM",
+                      category: "Meeting",
+                    },
+                    {
+                      date: "Aug 18",
+                      title: "Q3 roadmap planning",
+                      time: "2:00 PM",
+                      category: "Sprint",
+                    },
+                    {
+                      date: "Aug 19",
+                      title: "Frontend design sync",
+                      time: "11:30 AM",
+                      category: "Review",
+                    },
+                    {
+                      date: "Aug 21",
+                      title: "Production deployment",
+                      time: "4:00 PM",
+                      category: "Release",
+                    },
                   ].map((evt, i) => (
-                    <div key={i} className="p-4 bg-white border border-[#E5E7EB] rounded-xl flex items-center gap-4">
-                      <div className="w-12 h-12 bg-[#FEF3E7] border border-[#D47E30]/20 rounded-xl flex flex-col items-center justify-center text-[#D47E30]">
-                        <span className="text-xs font-bold">{evt.date}</span>
+                    <div
+                      key={i}
+                      className="flex items-center gap-3.5 p-3 rounded-lg border border-[#F1EDE6] hover:border-[#E5E0D8] transition-colors"
+                    >
+                      <div className="w-12 h-12 bg-[#FEF3E7] rounded-lg flex items-center justify-center text-[#D47E30] text-[12px] font-semibold flex-shrink-0">
+                        {evt.date}
                       </div>
-                      <div>
-                        <p className="text-sm font-bold text-[#1E293B]">{evt.title}</p>
-                        <p className="text-xs text-[#94a3b8]">{evt.time} • <span className="text-[#D47E30] font-medium">{evt.category}</span></p>
+                      <div className="min-w-0">
+                        <p className="text-[13.5px] font-medium text-[#1E293B]">
+                          {evt.title}
+                        </p>
+                        <p className="text-[12px] text-[#94A3B8]">
+                          {evt.time} ·{" "}
+                          <span className="text-[#D47E30]">{evt.category}</span>
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -632,74 +867,99 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* VIEW 6: ACTIVITY TAB */}
+          {/* ── Activity ── */}
           {activeNav === "Activity" && (
-            <div className="space-y-6">
+            <div className="space-y-5 max-w-[800px]">
               <div>
-                <h2 className="text-2xl font-extrabold text-[#1E293B]">Global Activity Feed</h2>
-                <p className="text-sm text-[#94a3b8] mt-1">Real-time audit log of team actions across all workspaces</p>
+                <h2 className="text-[20px] font-semibold tracking-tight text-[#1E293B]">
+                  Activity
+                </h2>
+                <p className="text-[13px] text-[#64748B] mt-0.5">
+                  Recent actions across all workspaces
+                </p>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {allActivities.length > 0 ? (
                   allActivities.map((act) => (
-                    <div key={act.id} className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-4 flex items-center justify-between">
+                    <div
+                      key={act.id}
+                      className="bg-white border border-[#E5E0D8] rounded-xl px-4 py-3.5 flex items-center justify-between"
+                    >
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 bg-[#D47E30] rounded-full flex items-center justify-center font-bold text-white text-xs">
+                        <div className="w-8 h-8 bg-[#D47E30] rounded-full flex items-center justify-center text-white text-[12px] font-semibold flex-shrink-0">
                           {act.user?.name?.charAt(0) || "U"}
                         </div>
                         <div>
-                          <p className="text-sm font-semibold text-[#1E293B]">
-                            <span>{act.user?.name || "User"}</span> <span className="font-normal text-[#475569]">{act.action}</span>
+                          <p className="text-[13.5px] text-[#1E293B]">
+                            <span className="font-medium">
+                              {act.user?.name || "User"}
+                            </span>{" "}
+                            <span className="text-[#64748B]">{act.action}</span>
                           </p>
-                          <p className="text-xs text-[#94a3b8]">{act.workspaceName}</p>
+                          <p className="text-[12px] text-[#94A3B8]">
+                            {act.workspaceName}
+                          </p>
                         </div>
                       </div>
-                      <span className="text-xs font-bold text-[#D47E30] bg-[#FEF3E7] px-3 py-1 rounded-full border border-[#D47E30]/20">
+                      <span className="text-[11px] text-[#94A3B8] whitespace-nowrap">
                         {new Date(act.createdAt).toLocaleDateString()}
                       </span>
                     </div>
                   ))
                 ) : (
-                  <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-12 text-center text-[#94a3b8]">
-                    No activity recorded yet.
+                  <div className="bg-white border border-[#E5E0D8] rounded-xl py-16 text-center">
+                    <p className="text-[14px] text-[#64748B]">
+                      No activity yet
+                    </p>
                   </div>
                 )}
               </div>
             </div>
           )}
 
-          {/* VIEW 7: MEMBERS TAB */}
+          {/* ── Members ── */}
           {activeNav === "Members" && (
-            <div className="space-y-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-2xl font-extrabold text-[#1E293B]">Team Members Directory</h2>
-                  <p className="text-sm text-[#94a3b8] mt-1">Members and collaborators across your workspaces</p>
-                </div>
+            <div className="space-y-5 max-w-[800px]">
+              <div>
+                <h2 className="text-[20px] font-semibold tracking-tight text-[#1E293B]">
+                  Members
+                </h2>
+                <p className="text-[13px] text-[#64748B] mt-0.5">
+                  People across your workspaces
+                </p>
               </div>
 
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {allMembers.length > 0 ? (
                   allMembers.map((m) => (
-                    <div key={m.id} className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-4 flex items-center justify-between">
-                      <div className="flex items-center gap-3.5">
-                        <div className="w-10 h-10 bg-[#D47E30] rounded-full flex items-center justify-center font-bold text-white text-sm">
+                    <div
+                      key={m.id}
+                      className="bg-white border border-[#E5E0D8] rounded-xl px-4 py-3.5 flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="w-9 h-9 bg-[#D47E30] rounded-full flex items-center justify-center text-white text-[13px] font-semibold flex-shrink-0">
                           {m.user?.name?.charAt(0) || "U"}
                         </div>
                         <div>
-                          <p className="text-sm font-bold text-[#1E293B]">{m.user?.name}</p>
-                          <p className="text-xs text-[#94a3b8]">{m.user?.email} • Workspace: {m.workspaceName}</p>
+                          <p className="text-[13.5px] font-medium text-[#1E293B]">
+                            {m.user?.name}
+                          </p>
+                          <p className="text-[12px] text-[#94A3B8]">
+                            {m.user?.email} · {m.workspaceName}
+                          </p>
                         </div>
                       </div>
-                      <span className="text-xs font-bold text-[#D47E30] bg-[#FEF3E7] border border-[#D47E30]/20 px-3 py-1 rounded-full">
+                      <span className="text-[11px] font-medium text-[#D47E30] bg-[#FEF3E7] px-2.5 py-1 rounded-md">
                         {m.role}
                       </span>
                     </div>
                   ))
                 ) : (
-                  <div className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-12 text-center text-[#94a3b8]">
-                    No members found.
+                  <div className="bg-white border border-[#E5E0D8] rounded-xl py-16 text-center">
+                    <p className="text-[14px] text-[#64748B]">
+                      No members found
+                    </p>
                   </div>
                 )}
               </div>
@@ -708,12 +968,18 @@ const Dashboard = () => {
         </main>
 
         {/* Footer */}
-        <footer className="px-6 py-4 border-t border-[#C9C3BB] bg-white flex items-center justify-between text-xs text-[#94a3b8]">
-          <span>© 2026 CollabFlow. All rights reserved.</span>
+        <footer className="px-6 py-3.5 border-t border-[#E5E0D8] bg-white/60 flex items-center justify-between text-[11.5px] text-[#94A3B8]">
+          <span>© 2026 CollabFlow</span>
           <div className="flex items-center gap-4">
-            <span className="hover:text-[#475569] cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-[#475569] cursor-pointer transition-colors">Terms of Service</span>
-            <span className="hover:text-[#475569] cursor-pointer transition-colors">Contact Us</span>
+            <button className="hover:text-[#64748B] transition-colors">
+              Privacy
+            </button>
+            <button className="hover:text-[#64748B] transition-colors">
+              Terms
+            </button>
+            <button className="hover:text-[#64748B] transition-colors">
+              Contact
+            </button>
           </div>
         </footer>
       </div>
@@ -724,7 +990,6 @@ const Dashboard = () => {
           onCreated={handleWorkspaceCreated}
         />
       )}
-
       {showSettingsModal && (
         <AccountSettingsModal onClose={() => setShowSettingsModal(false)} />
       )}
