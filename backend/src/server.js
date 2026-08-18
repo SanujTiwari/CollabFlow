@@ -12,6 +12,8 @@ import listRoutes from "./routes/list.routes.js";
 import taskRoutes from "./routes/task.routes.js";
 import commentRoutes from "./routes/comment.routes.js";
 import activityRoutes from "./routes/activity.routes.js";
+import invitationRoutes from "./routes/invitation.routes.js";
+import notificationRoutes from "./routes/notification.routes.js";
 
 dotenv.config();
 
@@ -43,6 +45,8 @@ app.use("/api/tasks", taskRoutes);
 app.use("/api/tasks/:taskId/comments", commentRoutes);
 app.use("/api/comments", commentRoutes);
 app.use("/api/workspaces/:workspaceId/activities", activityRoutes);
+app.use("/api/invitations", invitationRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 app.get("/", (req, res) => {
   res.send("CollabFlow API is running...");
@@ -51,6 +55,13 @@ app.get("/", (req, res) => {
 // =============== SOCKET.IO ===============
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
+
+  socket.on("joinUser", (userId) => {
+    if (userId) {
+      socket.join(`user:${userId}`);
+      console.log(`Socket ${socket.id} joined user:${userId}`);
+    }
+  });
 
   socket.on("joinBoard", (boardId) => {
     socket.join(`board:${boardId}`);

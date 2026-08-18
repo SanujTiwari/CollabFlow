@@ -3,6 +3,7 @@ import { useParams, useNavigate, Outlet, Link, useLocation } from "react-router-
 import api from "../../lib/axios";
 import CommandPalette from "./CommandPalette";
 import UserProfileMenu from "./UserProfileMenu";
+import NotificationBell from "./NotificationBell";
 
 const WorkspaceLayout = () => {
   const { workspaceId } = useParams();
@@ -207,7 +208,8 @@ const WorkspaceLayout = () => {
               <kbd className="text-[9px] font-mono bg-white text-[#94a3b8] px-1.5 py-0.5 rounded border border-[#C9C3BB]">Ctrl+K</kbd>
             </button>
 
-            {/* TOP-RIGHT USER PROFILE AVATAR MENU */}
+            {/* TOP-RIGHT NOTIFICATION BELL & USER PROFILE AVATAR MENU */}
+            <NotificationBell />
             <UserProfileMenu />
           </div>
         </header>

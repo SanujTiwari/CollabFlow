@@ -1,5 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
+import { SocketProvider } from "./context/SocketContext";
+import NotificationToast from "./components/layout/NotificationToast";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
@@ -14,35 +16,38 @@ import WorkspaceLayout from "./components/layout/WorkspaceLayout";
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route
-            path="/dashboard"
-            element={
-              <ProtectedRoute>
-                <Dashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/workspace/:workspaceId"
-            element={
-              <ProtectedRoute>
-                <WorkspaceLayout />
-              </ProtectedRoute>
-            }
-          >
-            <Route index element={<WorkspaceBoards />} />
-            <Route path="board/:boardId" element={<BoardView />} />
-            <Route path="analytics" element={<WorkspaceAnalytics />} />
-            <Route path="members" element={<WorkspaceMembers />} />
-            <Route path="activity" element={<WorkspaceActivity />} />
-          </Route>
-          <Route path="*" element={<Navigate to="/dashboard" replace />} />
-        </Routes>
-      </BrowserRouter>
+      <SocketProvider>
+        <NotificationToast />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <Dashboard />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/workspace/:workspaceId"
+              element={
+                <ProtectedRoute>
+                  <WorkspaceLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<WorkspaceBoards />} />
+              <Route path="board/:boardId" element={<BoardView />} />
+              <Route path="analytics" element={<WorkspaceAnalytics />} />
+              <Route path="members" element={<WorkspaceMembers />} />
+              <Route path="activity" element={<WorkspaceActivity />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/dashboard" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </SocketProvider>
     </AuthProvider>
   );
 }
