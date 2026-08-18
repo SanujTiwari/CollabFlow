@@ -16,6 +16,9 @@ export const register = async (req, res) => {
 
     const existingUser = await prisma.user.findUnique({ where: { email } });
     if (existingUser) {
+      if (existingUser.googleId && !existingUser.password) {
+        return res.status(400).json({ message: "An account with this email exists via Google. Please sign in with Google." });
+      }
       return res.status(400).json({ message: "Email already registered" });
     }
 
@@ -59,6 +62,10 @@ export const login = async (req, res) => {
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
       return res.status(400).json({ message: "Invalid credentials" });
+    }
+
+    if (!user.password) {
+      return res.status(400).json({ message: "This account was created using Google. Please sign in with Google." });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
