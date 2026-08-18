@@ -4,10 +4,10 @@ import { useAuth } from "../context/AuthContext";
 import api from "../lib/axios";
 
 const roleColors = {
-  OWNER: "bg-amber-500/20 text-amber-300 border-amber-500/40",
-  ADMIN: "bg-violet-500/20 text-violet-300 border-violet-500/40",
-  MEMBER: "bg-blue-500/20 text-blue-300 border-blue-500/40",
-  VIEWER: "bg-gray-500/20 text-gray-400 border-gray-500/40",
+  OWNER: "bg-amber-50 text-amber-700 border-amber-200",
+  ADMIN: "bg-orange-50 text-orange-700 border-orange-200",
+  MEMBER: "bg-blue-50 text-blue-700 border-blue-200",
+  VIEWER: "bg-gray-50 text-gray-600 border-gray-200",
 };
 
 const WorkspaceMembers = () => {
@@ -77,19 +77,19 @@ const WorkspaceMembers = () => {
   return (
     <div className="p-8 max-w-4xl mx-auto overflow-y-auto max-h-screen">
       <div className="mb-8">
-        <h1 className="text-2xl font-extrabold text-white tracking-tight">Workspace Members</h1>
-        <p className="text-sm text-gray-400 mt-1">Manage team access and permissions for this workspace</p>
+        <h1 className="text-2xl font-extrabold text-[#1E293B] tracking-tight">Workspace Members</h1>
+        <p className="text-sm text-[#94a3b8] mt-1">Manage team access and permissions for this workspace</p>
       </div>
 
       {/* Invite Member Box */}
       {canManage && (
-        <div className="glass-panel rounded-2xl p-6 mb-8 border border-white/10 shadow-xl">
-          <h2 className="text-sm font-bold text-white mb-3">Invite Team Member</h2>
+        <div className="bg-[#F8F6F2] rounded-2xl p-6 mb-8 border border-[#C9C3BB]">
+          <h2 className="text-sm font-bold text-[#1E293B] mb-3">Invite Team Member</h2>
           {error && (
-            <div className="bg-rose-500/10 border border-rose-500/20 text-rose-300 p-3 rounded-xl mb-3 text-xs font-medium">{error}</div>
+            <div className="bg-red-50 border border-red-200 text-[#DC2626] p-3 rounded-xl mb-3 text-xs font-medium">{error}</div>
           )}
           {success && (
-            <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 p-3 rounded-xl mb-3 text-xs font-medium">{success}</div>
+            <div className="bg-green-50 border border-green-200 text-[#22C55E] p-3 rounded-xl mb-3 text-xs font-medium">{success}</div>
           )}
           <form onSubmit={handleInvite} className="flex gap-3">
             <input
@@ -97,13 +97,13 @@ const WorkspaceMembers = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="colleague@company.com"
-              className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500 transition-all"
+              className="flex-1 glass-input rounded-xl px-4 py-2.5 text-sm"
               required
             />
             <button
               type="submit"
               disabled={inviteLoading}
-              className="px-5 py-2.5 text-xs font-bold text-white bg-gradient-to-r from-violet-600 to-indigo-600 rounded-xl hover:from-violet-500 hover:to-indigo-500 transition-all shadow-md shadow-violet-500/20 disabled:opacity-50"
+              className="btn-glow px-5 py-2.5 text-xs font-bold rounded-xl disabled:opacity-50"
             >
               {inviteLoading ? "Sending..." : "Add Member"}
             </button>
@@ -115,7 +115,7 @@ const WorkspaceMembers = () => {
       {loading ? (
         <div className="space-y-3">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="bg-white/5 border border-white/5 rounded-2xl h-16 animate-pulse" />
+            <div key={i} className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl h-16 animate-pulse" />
           ))}
         </div>
       ) : (
@@ -123,20 +123,20 @@ const WorkspaceMembers = () => {
           {members.map((member) => (
             <div
               key={member.id}
-              className="glass-card rounded-2xl p-4 flex items-center justify-between hover:border-violet-500/30 transition-all shadow-md"
+              className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl p-4 flex items-center justify-between hover:border-[#D47E30] transition-all"
             >
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 bg-gradient-to-br from-violet-500 to-indigo-600 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md">
+                <div className="w-10 h-10 bg-[#D47E30] rounded-full flex items-center justify-center font-bold text-white text-sm">
                   {member.user.name.charAt(0).toUpperCase()}
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-white flex items-center gap-2">
+                  <p className="text-sm font-bold text-[#1E293B] flex items-center gap-2">
                     {member.user.name}
                     {member.userId === user?.id && (
-                      <span className="text-[10px] bg-violet-500/20 text-violet-300 border border-violet-500/30 px-2 py-0.5 rounded-full font-bold">YOU</span>
+                      <span className="text-[10px] bg-[#FEF3E7] text-[#D47E30] border border-[#D47E30]/20 px-2 py-0.5 rounded-full font-bold">YOU</span>
                     )}
                   </p>
-                  <p className="text-xs text-gray-400">{member.user.email}</p>
+                  <p className="text-xs text-[#94a3b8]">{member.user.email}</p>
                 </div>
               </div>
 
@@ -145,11 +145,11 @@ const WorkspaceMembers = () => {
                   <select
                     value={member.role}
                     onChange={(e) => handleRoleChange(member.id, e.target.value)}
-                    className="bg-white/5 border border-white/10 rounded-xl px-3 py-1.5 text-xs text-gray-200 font-semibold focus:outline-none focus:ring-2 focus:ring-violet-500"
+                    className="bg-white border border-[#C9C3BB] rounded-xl px-3 py-1.5 text-xs text-[#1E293B] font-semibold focus:outline-none focus:ring-2 focus:ring-[#D47E30]"
                   >
-                    <option value="ADMIN" className="bg-gray-900">ADMIN</option>
-                    <option value="MEMBER" className="bg-gray-900">MEMBER</option>
-                    <option value="VIEWER" className="bg-gray-900">VIEWER</option>
+                    <option value="ADMIN">ADMIN</option>
+                    <option value="MEMBER">MEMBER</option>
+                    <option value="VIEWER">VIEWER</option>
                   </select>
                 ) : (
                   <span className={`text-xs font-bold px-3 py-1 rounded-xl border ${roleColors[member.role]}`}>
@@ -160,7 +160,7 @@ const WorkspaceMembers = () => {
                 {canManage && member.role !== "OWNER" && member.userId !== user?.id && (
                   <button
                     onClick={() => handleRemove(member.id)}
-                    className="text-gray-400 hover:text-rose-400 p-2 rounded-xl hover:bg-white/5 transition-colors"
+                    className="text-[#94a3b8] hover:text-[#DC2626] p-2 rounded-xl hover:bg-red-50 transition-colors"
                     title="Remove member"
                   >
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
