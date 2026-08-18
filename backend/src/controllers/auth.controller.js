@@ -138,28 +138,45 @@ export const updateProfile = async (req, res) => {
 // ====================== GOOGLE LOGIN ======================
 export const googleLogin = async (req, res) => {
   try {
-    const { credential } = req.body;
+    const { credential, accessToken } = req.body;
 
-    if (!credential) {
-      return res.status(400).json({ message: "Google credential token is required" });
+    if (!credential && !accessToken) {
+      return res.status(400).json({ message: "Google auth token is required" });
     }
 
     let payload;
-    try {
-      if (process.env.GOOGLE_CLIENT_ID) {
-        const ticket = await client.verifyIdToken({
-          idToken: credential,
-          audience: process.env.GOOGLE_CLIENT_ID,
+
+    if (accessToken) {
+      // Fetch user profile from Google UserInfo API using access_token
+      try {
+        const response = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+          headers: { Authorization: `Bearer ${accessToken}` },
         });
-        payload = ticket.getPayload();
-      } else {
-        // Fallback for development decoding
-        const decodedStr = Buffer.from(credential.split(".")[1], "base64").toString("utf-8");
-        payload = JSON.parse(decodedStr);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch userinfo: ${response.statusText}`);
+        }
+        payload = await response.json();
+      } catch (err) {
+        console.error("Fetch Google UserInfo Error:", err);
+        return res.status(401).json({ message: "Failed to fetch Google user profile" });
       }
-    } catch (verifyError) {
-      console.error("Google Token Verification Error:", verifyError);
-      return res.status(401).json({ message: "Invalid Google token" });
+    } else if (credential) {
+      try {
+        if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_ID !== "YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com") {
+          const ticket = await client.verifyIdToken({
+            idToken: credential,
+            audience: process.env.GOOGLE_CLIENT_ID,
+          });
+          payload = ticket.getPayload();
+        } else {
+          // Fallback for development decoding
+          const decodedStr = Buffer.from(credential.split(".")[1], "base64").toString("utf-8");
+          payload = JSON.parse(decodedStr);
+        }
+      } catch (verifyError) {
+        console.error("Google Token Verification Error:", verifyError);
+        return res.status(401).json({ message: "Invalid Google token" });
+      }
     }
 
     if (!payload || !payload.email) {
