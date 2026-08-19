@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../lib/axios";
+import TextLoader from "../components/common/TextLoader";
 
 const WorkspaceActivity = () => {
   const { workspaceId } = useParams();
@@ -44,10 +45,8 @@ const WorkspaceActivity = () => {
       </div>
 
       {loading ? (
-        <div className="space-y-3">
-          {[1, 2, 3, 4, 5].map((i) => (
-            <div key={i} className="bg-[#F8F6F2] border border-[#C9C3BB] rounded-2xl h-16 animate-pulse" />
-          ))}
+        <div className="py-20 flex justify-center">
+          <TextLoader text="COLLABFLOW" variant="amber" />
         </div>
       ) : activities.length === 0 ? (
         <div className="bg-[#F8F6F2] rounded-2xl text-center py-16 px-6 max-w-md mx-auto border border-[#C9C3BB]">

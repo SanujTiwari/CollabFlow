@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import api from "../lib/axios";
+import TextLoader from "../components/common/TextLoader";
 
 const WorkspaceAnalytics = () => {
   const { workspaceId } = useParams();
@@ -24,7 +25,7 @@ const WorkspaceAnalytics = () => {
   if (loading) {
     return (
       <div className="p-8 flex items-center justify-center min-h-[400px]">
-        <div className="w-10 h-10 border-3 border-[#D47E30] border-t-transparent rounded-full animate-spin" />
+        <TextLoader text="COLLABFLOW" variant="amber" />
       </div>
     );
   }

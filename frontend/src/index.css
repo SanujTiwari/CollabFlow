@@ -168,7 +168,7 @@
 
 /* ─── Uiverse Text Sliced Loader Effect ─── */
 .loader {
-  --main-size: 2.8em;
+  --main-size: 2.2em;
   --text-color: #1E293B;
   --shine-color: rgba(30, 41, 59, 0.2);
   --shadow-color: #94A3B8;
@@ -182,8 +182,8 @@
   font-weight: 900;
   text-transform: uppercase;
   color: var(--text-color);
-  width: 7.3em;
-  height: 1em;
+  width: 11em;
+  height: 1.2em;
   filter: drop-shadow(0 0 0.05em var(--shine-color));
 }
 
