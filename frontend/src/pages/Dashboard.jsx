@@ -8,6 +8,7 @@ import UserProfileMenu from "../components/layout/UserProfileMenu";
 import NotificationBell from "../components/layout/NotificationBell";
 import CommandPalette from "../components/layout/CommandPalette";
 import AccountSettingsModal from "../components/layout/AccountSettingsModal";
+import LoaderShowcase from "../components/common/LoaderShowcase";
 
 const NAV_ITEMS = [
   { label: "Dashboard", icon: "dashboard" },
@@ -412,6 +413,9 @@ const Dashboard = () => {
                   </button>
                 </div>
               </div>
+
+              {/* Uiverse Text Sliced Loader Showcase */}
+              <LoaderShowcase />
 
               {/* Stats */}
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">

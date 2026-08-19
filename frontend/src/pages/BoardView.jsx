@@ -13,6 +13,7 @@ import ListColumn from "../components/board/ListColumn";
 import TaskCard from "../components/board/TaskCard";
 import AddListForm from "../components/board/AddListForm";
 import TaskModal from "../components/board/TaskModal";
+import TextLoader from "../components/common/TextLoader";
 import { io as socketIO } from "socket.io-client";
 
 const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
@@ -308,8 +309,8 @@ const BoardView = () => {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center h-full min-h-[600px]">
-        <div className="w-10 h-10 border-3 border-[#D47E30] border-t-transparent rounded-full animate-spin" />
+      <div className="flex items-center justify-center h-full min-h-[600px] py-20">
+        <TextLoader text="COLLABFLOW" variant="amber" />
       </div>
     );
   }

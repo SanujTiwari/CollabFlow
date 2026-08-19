@@ -1,15 +1,12 @@
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import TextLoader from "./common/TextLoader";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p>Loading...</p>
-      </div>
-    );
+    return <TextLoader fullScreen text="COLLABFLOW" variant="amber" />;
   }
 
   if (!user) {
